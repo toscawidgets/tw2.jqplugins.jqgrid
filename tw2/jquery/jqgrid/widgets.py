@@ -1,7 +1,7 @@
 from tw2.jquery.core.base import (
-    jQueryJSLink, jQueryCSSLink, jQueryPluginJSLink,
-    jQueryPluginCSSLink, jQueryUIThemeCSSLink, jQueryUIJSLink
+    jQueryJSLink, jQueryCSSLink, jQueryPluginJSLink, jQueryPluginCSSLink
 )
+from tw2.jquery.ui.base import jQueryUIThemeCSSLink, jQueryUIJSLink
 from tw2.jquery.ui import jquery_ui_css, jquery_ui_js
 
 from tw2.core.resources import encoder
