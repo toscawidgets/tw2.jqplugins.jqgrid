@@ -11,6 +11,7 @@ setup(
     install_requires=[
         "tw2.core>=2.0b2",
         "tw2.jquery.core",
+        "tw2.jquery.ui",
         ## Add other requirements here
         # "Genshi",
         ],
