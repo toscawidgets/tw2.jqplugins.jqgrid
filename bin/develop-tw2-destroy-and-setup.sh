@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-venv=virtualenv-tw2.jquery.core
+venv=virtualenv-tw2.jquery.jqgrid
 $(
     rm -rf $venv
 ) || echo "Did not destroy $venv"
@@ -16,10 +16,8 @@ hg clone http://bitbucket.org/paj/tw2forms || echo "tw2devtools exists."
 pip install genshi
 pip install formencode
 
-f=$(cd tw2core ; python setup.py develop)
-echo $f
-f=$(cd tw2forms ; python setup.py develop)
-echo $f
-f=$(cd tw2devtools ; python setup.py develop)
-echo $f
+cd tw2core ; python setup.py develop ; cd -
+cd tw2forms ; python setup.py develop ; cd -
+cd tw2devtools ; python setup.py develop ; cd -
+cd tw2.jquery.core ; python setup.py develop ; cd -
 

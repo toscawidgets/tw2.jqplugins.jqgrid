@@ -14,4 +14,4 @@ dist
 tw2core
 tw2devtools
 tw2forms
-virtualenv-tw2.jquery.core
+virtualenv-*
