@@ -12,6 +12,7 @@ source $venv/bin/activate
 hg clone http://bitbucket.org/paj/tw2core || echo "tw2core exists."
 hg clone http://bitbucket.org/paj/tw2devtools || echo "tw2devtools exists."
 hg clone http://bitbucket.org/paj/tw2forms || echo "tw2devtools exists."
+git clone http://github.com/ralphbean/tw2.jquery.core || echo "tw2.jquery.core exists."
 
 pip install genshi
 pip install formencode
