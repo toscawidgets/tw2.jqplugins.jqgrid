@@ -1,0 +1,17 @@
+# use glob syntax.
+syntax: glob
+
+*.egg-info
+.coverage
+*.pyc
+*~
+*.swp
+*.rej
+tags
+dist
+
+.hg*
+tw2core
+tw2devtools
+tw2forms
+virtualenv-tw2.jquery.core
