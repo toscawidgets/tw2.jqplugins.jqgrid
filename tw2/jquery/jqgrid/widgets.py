@@ -12,7 +12,14 @@ jqgrid_css = jQueryPluginCSSLink(name=defaults._jqgrid_name_, version = defaults
 jqgrid_locale = jQueryPluginJSLink(name=defaults._jqgrid_name_, basename='grid.locale-%s' % defaults._jqgrid_locale_, subdir='js/i18n', version=defaults._jqgrid_version_)
 jqgrid_js = jQueryPluginJSLink(name=defaults._jqgrid_name_, version = defaults._jqgrid_version_, variant='min')
 
-jqgrid = jQueryJSLink(resources = [jquery_ui_css, jquery_ui_js, jqgrid_locale, jqgrid_js, jqgrid_css])
+jqgrid = jQueryJSLink(
+    resources = [
+        jquery_ui_css,
+        jquery_ui_js,
+        jqgrid_locale,
+        jqgrid_js,
+        jqgrid_css
+    ])
 
 _pager_defaults = {'enableSearch': True, 'enableClear': True, 'gridModel': True}
 
