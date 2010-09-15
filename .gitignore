@@ -14,4 +14,5 @@ tw2core
 tw2devtools
 tw2forms
 tw2.jquery.core
+tw2.jquery.ui
 virtualenv-*
