@@ -9,9 +9,9 @@ syntax: glob
 *.rej
 tags
 dist
-
 .hg*
 tw2core
 tw2devtools
 tw2forms
+tw2.jquery.core
 virtualenv-*
