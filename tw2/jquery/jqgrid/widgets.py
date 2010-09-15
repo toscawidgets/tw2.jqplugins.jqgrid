@@ -5,6 +5,7 @@ from tw2.jquery.ui.base import jQueryUIThemeCSSLink, jQueryUIJSLink
 from tw2.jquery.ui import jquery_ui_css, jquery_ui_js
 
 from tw2.core.resources import encoder
+import tw2.core as twc
 
 import formencode.validators as fv
 import defaults
@@ -47,7 +48,7 @@ class jqGrid(twc.Widget):
     options = twc.Param("Extra options to pass to jqgrid: Defaults {}", default = {})
     pager_options = twc.Param("Extra options to pass to jqgrid's pager: Defaults %s" % str(_pager_defaults), default = _pager_defaults)
     paginate = twc.Param("Will the widget show the pager?", default=None)
-    template = "tw2.jquery.core.templates.jqgrid"
+    template = "tw2.jquery.jqgrid.templates.jqgrid"
 
     def prepare(self):
         super(jqGrid, self).prepare()
