@@ -1,46 +1,11 @@
 
 
-import tw2.jquery.core.base as twjq_c
-import tw2.jquery.ui.base as twjq_ui
 
 from tw2.core.resources import encoder
 import tw2.core as twc
 
 import formencode.validators as fv
-import defaults
-
-jquery_js = twjq_c.jQueryJSLink()
-
-jqgrid_css = twjq_c.jQueryPluginCSSLink(
-    name=defaults._jqgrid_name_,
-    version = defaults._jqgrid_version_,
-    basename = defaults._jqgrid_css_basename_,
-    modname = 'tw2.jquery.jqgrid',
-)
-
-jqgrid_locale = twjq_c.jQueryPluginJSLink(
-    name=defaults._jqgrid_name_,
-    basename='grid.locale-%s' % defaults._jqgrid_locale_,
-    subdir='js/i18n',
-    version=defaults._jqgrid_version_,
-    modname='tw2.jquery.jqgrid',
-)
-
-jqgrid_js = twjq_c.jQueryPluginJSLink(
-    name=defaults._jqgrid_name_,
-    version=defaults._jqgrid_version_,
-    variant='min',
-    modname='tw2.jquery.jqgrid',
-)
-
-jqgrid = twjq_c.jQueryJSLink(
-    resources = [
-        twjq_ui.jquery_ui_css,
-        twjq_ui.jquery_ui_js,
-        jqgrid_locale,
-        jqgrid_js,
-        jqgrid_css
-    ])
+import base
 
 _pager_defaults = {'enableSearch': True, 'enableClear': True, 'gridModel': True}
 
@@ -60,10 +25,11 @@ class jqGridFilterSchema(fe.Schema):
 
 
 class jqGrid(twc.Widget):
-    resources = [jqgrid]
+    resources = [base.jqgrid]
     url = twc.Param("Url that jqGrid should pull its data from", default=None)
-    options = twc.Param("Extra options to pass to jqgrid: Defaults {}", default = {})
-    pager_options = twc.Param("Extra options to pass to jqgrid's pager: Defaults %s" % str(_pager_defaults), default = _pager_defaults)
+    options = twc.Param("Extra options to pass to jqgrid", default={})
+    pager_options = twc.Param(
+        "Extra options to pass to jqgrid's pager", default=_pager_defaults)
     paginate = twc.Param("Will the widget show the pager?", default=None)
     template = "tw2.jquery.jqgrid.templates.jqgrid"
 
