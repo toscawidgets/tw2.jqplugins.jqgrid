@@ -1,8 +1,7 @@
-from tw2.jquery.core.base import (
-    jQueryJSLink, jQueryCSSLink, jQueryPluginJSLink, jQueryPluginCSSLink
-)
-from tw2.jquery.ui.base import jQueryUIThemeCSSLink, jQueryUIJSLink
-from tw2.jquery.ui import jquery_ui_css, jquery_ui_js
+
+
+import tw2.jquery.core.base as twjq_c
+import tw2.jquery.ui.base as twjq_ui
 
 from tw2.core.resources import encoder
 import tw2.core as twc
@@ -10,16 +9,34 @@ import tw2.core as twc
 import formencode.validators as fv
 import defaults
 
-jquery_js = jQueryJSLink()
+jquery_js = twjq_c.jQueryJSLink()
 
-jqgrid_css = jQueryPluginCSSLink(name=defaults._jqgrid_name_, version = defaults._jqgrid_version_, basename = defaults._jqgrid_css_basename_)
-jqgrid_locale = jQueryPluginJSLink(name=defaults._jqgrid_name_, basename='grid.locale-%s' % defaults._jqgrid_locale_, subdir='js/i18n', version=defaults._jqgrid_version_)
-jqgrid_js = jQueryPluginJSLink(name=defaults._jqgrid_name_, version = defaults._jqgrid_version_, variant='min')
+jqgrid_css = twjq_c.jQueryPluginCSSLink(
+    name=defaults._jqgrid_name_,
+    version = defaults._jqgrid_version_,
+    basename = defaults._jqgrid_css_basename_,
+    modname = 'tw2.jquery.jqgrid',
+)
 
-jqgrid = jQueryJSLink(
+jqgrid_locale = twjq_c.jQueryPluginJSLink(
+    name=defaults._jqgrid_name_,
+    basename='grid.locale-%s' % defaults._jqgrid_locale_,
+    subdir='js/i18n',
+    version=defaults._jqgrid_version_,
+    modname='tw2.jquery.jqgrid',
+)
+
+jqgrid_js = twjq_c.jQueryPluginJSLink(
+    name=defaults._jqgrid_name_,
+    version=defaults._jqgrid_version_,
+    variant='min',
+    modname='tw2.jquery.jqgrid',
+)
+
+jqgrid = twjq_c.jQueryJSLink(
     resources = [
-        jquery_ui_css,
-        jquery_ui_js,
+        twjq_ui.jquery_ui_css,
+        twjq_ui.jquery_ui_js,
         jqgrid_locale,
         jqgrid_js,
         jqgrid_css
