@@ -1,0 +1,2 @@
+recursive-include tw2/jquery/core/static *
+recursive-include tw2/jquery/core/templates *
