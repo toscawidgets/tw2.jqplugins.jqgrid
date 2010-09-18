@@ -4,10 +4,10 @@ setup(
     name='tw2.jquery.jqgrid',
     version='2.0a1',
     description='',
-    author='',
-    author_email='',
+    author='Ralph Bean',
+    author_email='ralph.bean@gmail.com',
     license='MIT',
-    url='',
+    url='http://github.com/ralphbean/tw2.jquery.jqgrid',
     install_requires=[
         "tw2.core>=2.0b2",
         "tw2.jquery.core",
