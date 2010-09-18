@@ -5,6 +5,7 @@ from tw2.core.resources import encoder
 import tw2.core as twc
 
 import tw2.jquery.core
+import tw2.jquery.core.base as tw2_jq_c_b
 
 import formencode.validators as fv
 import base
@@ -31,13 +32,21 @@ class jqGridWidget(tw2.jquery.core.JQueryWidget):
     template = "tw2.jquery.jqgrid.templates.jqgrid"
     
     options = twc.Param("Configuration options to pass to jqgrid", default={})
+    pager_options = twc.Param("Configuration options for pager", default={})
 
     def prepare(self):
         super(jqGridWidget, self).prepare()
         if not self.options:
             raise ValueError, 'jqGridWidget must be supplied a dict of options'
 
-        if not 'url' in self.options:
-            raise ValueError, "jqGridWidget must be supplied a url in options"
+        if not 'url' in self.options and not 'datastr' in self.options:
+            raise ValueError, "jqGridWidget must be supplied a " + \
+                              "'url' or 'datastr' in options"
+
+        if 'pager' in self.options:
+            self.options['pager_selector'] = self.options['pager']
+            self.options['pager'] = tw2_jq_c_b.jQuery(self.options['pager'])
+
 
         self._options = encoder.encode(self.options)
+        self._pager_options = encoder.encode(self.pager_options)

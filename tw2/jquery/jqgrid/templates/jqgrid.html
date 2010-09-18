@@ -1,10 +1,17 @@
-<html xmlns:py="http://genshi.edgewall.org/">
+<div xmlns:py="http://genshi.edgewall.org/">
 <table py:attrs="w.attrs" ></table>
+<div py:if="'pager' in w._options" id="w._options['pager_selector']" />
 <script type="text/javascript">
 $(document).ready(
-    function(){ 
-        $("#${w.attrs['id']}").jqGrid(${w._options});
+    function(){
+        var opts = ${w._options};
+        var grid = $("#${w.attrs['id']}");
+        grid.jqGrid(opts);
+        if ( 'pager_selector' in opts ) {
+            var pager_opts = ${w._pager_options}
+            grid.navGrid(opts['pager_selector'], pager_opts);
+        }
     }
 ); 
 </script>
-</html>
+</div>
