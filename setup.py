@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='tw2.jquery.jqgrid',
-    version='2.0a2',
+    version='2.0a3',
     description='',
     author='Ralph Bean',
     author_email='ralph.bean@gmail.com',
@@ -15,7 +15,7 @@ setup(
         ## Add other requirements here
         # "Genshi",
         ],
-    packages=find_packages(exclude=['tw2.jquery', 'ez_setup', 'tests']),
+    packages=find_packages(exclude=['ez_setup', 'tests']),
     namespace_packages = ['tw2'],
     zip_safe=False,
     include_package_data=True,
