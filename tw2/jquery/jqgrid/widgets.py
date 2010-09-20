@@ -43,10 +43,5 @@ class jqGridWidget(tw2.jquery.core.JQueryWidget):
             raise ValueError, "jqGridWidget must be supplied a " + \
                               "'url' or 'datastr' in options"
 
-        if 'pager' in self.options:
-            self.options['pager_selector'] = self.options['pager']
-            self.options['pager'] = tw2_jq_c_b.jQuery(self.options['pager'])
-
-
         self._options = encoder.encode(self.options)
         self._pager_options = encoder.encode(self.pager_options)
