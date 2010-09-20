@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='tw2.jquery.jqgrid',
-    version='2.0a3',
+    version='2.0a4',
     description='',
     author='Ralph Bean',
     author_email='ralph.bean@gmail.com',
