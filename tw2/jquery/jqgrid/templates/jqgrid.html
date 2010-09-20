@@ -1,7 +1,7 @@
 <div xmlns:py="http://genshi.edgewall.org/">
 <table py:attrs="w.attrs" ></table>
 <py:if test="'pager' in w._options">
-<div id="w._options['pager']" />
+<div id="${w._options['pager']}" />
 </py:if>
 <script type="text/javascript">
 $(document).ready(
