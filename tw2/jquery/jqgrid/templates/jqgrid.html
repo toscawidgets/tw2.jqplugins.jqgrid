@@ -1,6 +1,8 @@
 <div xmlns:py="http://genshi.edgewall.org/">
 <table py:attrs="w.attrs" ></table>
-<div py:if="'pager' in w._options" id="w._options['pager']" />
+<py:if="'pager' in w._options">
+<div id="w._options['pager']" />
+</py:if>
 <script type="text/javascript">
 $(document).ready(
     function(){
@@ -11,7 +13,7 @@ $(document).ready(
             opts['pager_selector'] = opts['pager'];
             opts['pager'] = $(opts['pager'])
             var pager_opts = ${w._pager_options}
-            grid.navGrid(opts['pager_selector'], pager_opts);
+            grid.navGrid('#'+opts['pager_selector'], pager_opts);
         }
     }
 ); 
