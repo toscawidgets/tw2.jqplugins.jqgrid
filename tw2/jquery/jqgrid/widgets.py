@@ -39,9 +39,13 @@ class jqGridWidget(tw2.jquery.core.JQueryWidget):
         if not self.options:
             raise ValueError, 'jqGridWidget must be supplied a dict of options'
 
-        if not 'url' in self.options and not 'datastr' in self.options:
+        
+        if (
+            not 'url' in self.options and
+            not 'data' in self.options and
+            not 'datastr' in self.options):
             raise ValueError, "jqGridWidget must be supplied a " + \
-                              "'url' or 'datastr' in options"
+                              "'url', 'data', or 'datastr' in options"
 
         self._options = encoder.encode(self.options)
         self._pager_options = encoder.encode(self.pager_options)
