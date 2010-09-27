@@ -1,9 +1,15 @@
 from setuptools import setup, find_packages
 
+f = open('README.rst')
+long_description = f.read().strip()
+long_description = long_description.split('split here', 1)[1]
+f.close()
+
 setup(
     name='tw2.jquery_jqgrid',
     version='2.0a13',
-    description='',
+    description='toscawidgets2 wrapper for the jQuery grid plugin',
+    long_description=long_description,
     author='Ralph Bean',
     author_email='ralph.bean@gmail.com',
     license='MIT',
