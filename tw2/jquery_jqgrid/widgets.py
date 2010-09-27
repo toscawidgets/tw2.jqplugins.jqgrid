@@ -4,8 +4,8 @@
 from tw2.core.resources import encoder
 import tw2.core as twc
 
-import tw2.jquery.core
-import tw2.jquery.core.base as tw2_jq_c_b
+import tw2.jquery_core
+import tw2.jquery_core.base as tw2_jq_c_b
 
 import formencode.validators as fv
 import base
@@ -27,9 +27,9 @@ class jqGridFilterSchema(fe.Schema):
     searchOper = fv.String(if_empty=None, not_empty=False, if_missing=None)
 
 
-class jqGridWidget(tw2.jquery.core.JQueryWidget):
+class jqGridWidget(tw2.jquery_core.JQueryWidget):
     resources = [base.jqgrid]
-    template = "tw2.jquery.jqgrid.templates.jqgrid"
+    template = "tw2.jquery_jqgrid.templates.jqgrid"
     
     options = twc.Param("Configuration options to pass to jqgrid", default={})
     pager_options = twc.Param("Configuration options for pager", default={})

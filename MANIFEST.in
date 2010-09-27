@@ -1,2 +1,2 @@
-recursive-include tw2/jquery/jqgrid/static *
-recursive-include tw2/jquery/jqgrid/templates *
+recursive-include tw2/jquery_jqgrid/static *
+recursive-include tw2/jquery_jqgrid/templates *

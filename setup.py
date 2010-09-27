@@ -1,17 +1,17 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='tw2.jquery.jqgrid',
+    name='tw2.jquery_jqgrid',
     version='2.0a13',
     description='',
     author='Ralph Bean',
     author_email='ralph.bean@gmail.com',
     license='MIT',
-    url='http://github.com/ralphbean/tw2.jquery.jqgrid',
+    url='http://github.com/ralphbean/tw2.jquery_jqgrid',
     install_requires=[
         "tw2.core>=2.0b2",
-        "tw2.jquery.core",
-        "tw2.jquery.ui",
+        "tw2.jquery_core",
+        "tw2.jquery_ui",
         ## Add other requirements here
         # "Genshi",
         ],
@@ -23,7 +23,7 @@ setup(
     entry_points="""
         [tw2.widgets]
         # Register your widgets so they can be listed in the WidgetBrowser
-        widgets = tw2.jquery.jqgrid
+        widgets = tw2.jquery_jqgrid
     """,
     keywords = [
         'toscawidgets.widgets',
