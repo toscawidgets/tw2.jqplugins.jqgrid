@@ -6,6 +6,7 @@ import tw2.core as twc
 
 import tw2.jquery_core
 import tw2.jquery_core.base as tw2_jq_c_b
+import tw2.jquery_ui.base as tw2_jq_ui
 
 import formencode.validators as fv
 import base
@@ -28,7 +29,10 @@ class jqGridFilterSchema(fe.Schema):
 
 
 class jqGridWidget(tw2.jquery_core.JQueryWidget):
-    resources = [base.jqgrid]
+    resources = [
+        base.jqgrid_js, base.jqgrid_css, base.jqgrid_locale,
+        tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css, tw2_jq_ui.jquery_js
+    ]
     template = "tw2.jquery_jqgrid.templates.jqgrid"
     
     options = twc.Param("Configuration options to pass to jqgrid", default={})
