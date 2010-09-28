@@ -30,8 +30,9 @@ class jqGridFilterSchema(fe.Schema):
 
 class jqGridWidget(tw2.jquery_core.JQueryWidget):
     resources = [
+        tw2_jq_c_b.jquery_js,
+        tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css,
         base.jqgrid_js, base.jqgrid_css, base.jqgrid_locale,
-        tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css, tw2_jq_ui.jquery_js
     ]
     template = "tw2.jquery_jqgrid.templates.jqgrid"
     
