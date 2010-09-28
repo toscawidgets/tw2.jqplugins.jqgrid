@@ -32,7 +32,7 @@ class jqGridWidget(tw2.jquery_core.JQueryWidget):
     resources = [
         tw2.jquery_core.jquery_js,
         tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css,
-        base.jqgrid_js, base.jqgrid_css, base.jqgrid_locale,
+        base.jqgrid_locale, base.jqgrid_js, base.jqgrid_css,
     ]
     template = "tw2.jquery_jqgrid.templates.jqgrid"
     
