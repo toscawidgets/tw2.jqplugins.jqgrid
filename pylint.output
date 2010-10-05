@@ -1,0 +1,211 @@
+************* Module tw2
+C:  1: Missing docstring
+************* Module tw2.jquery_jqgrid.defaults
+C:  1: Missing docstring
+C:  1: Invalid name "_jqgrid_version_" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C:  2: Invalid name "_jqgrid_name_" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C:  3: Invalid name "_jqgrid_css_basename_" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C:  4: Invalid name "_jqgrid_locale_" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module tw2.jquery_jqgrid.samples
+W:  8: Relative import 'widgets', should be 'tw2.jquery_jqgrid.widgets'
+C: 13:DemoJQGridWidget: Missing docstring
+W: 13:DemoJQGridWidget: Class has no __init__ method
+R: 13:DemoJQGridWidget: Too few public methods (1/2)
+************* Module tw2.jquery_jqgrid.base
+C:  1: Missing docstring
+E:  2: No name 'jquery_core' in module 'tw2'
+F:  2: Unable to import 'tw2.jquery_core.base'
+W:  3: Relative import 'defaults', should be 'tw2.jquery_jqgrid.defaults'
+C:  5: Invalid name "jqgrid_css" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+W:  6: Access to a protected member _jqgrid_name_ of a client class
+W:  7: Access to a protected member _jqgrid_version_ of a client class
+W:  8: Access to a protected member _jqgrid_css_basename_ of a client class
+C: 12: Invalid name "jqgrid_locale" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+W: 13: Access to a protected member _jqgrid_name_ of a client class
+W: 14: Access to a protected member _jqgrid_locale_ of a client class
+W: 16: Access to a protected member _jqgrid_version_ of a client class
+C: 20: Invalid name "jqgrid_js" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+W: 21: Access to a protected member _jqgrid_name_ of a client class
+W: 22: Access to a protected member _jqgrid_version_ of a client class
+************* Module tw2.jquery_jqgrid
+C:  1: Missing docstring
+W:  1: Relative import 'widgets', should be 'tw2.jquery_jqgrid.widgets'
+W:  1: Wildcard import widgets
+************* Module tw2.jquery_jqgrid.widgets
+C:  1: Missing docstring
+E:  4: No name 'core' in module 'tw2'
+F:  4: Unable to import 'tw2.core.resources'
+E:  5: No name 'core' in module 'tw2'
+F:  5: Unable to import 'tw2.core'
+E:  7: No name 'jquery_core' in module 'tw2'
+F:  7: Unable to import 'tw2.jquery_core'
+E:  8: No name 'jquery_core' in module 'tw2'
+F:  8: Unable to import 'tw2.jquery_core.base'
+E:  9: No name 'jquery_ui' in module 'tw2'
+F:  9: Unable to import 'tw2.jquery_ui.base'
+W: 12: Relative import 'base', should be 'tw2.jquery_jqgrid.base'
+C: 14: Invalid name "_pager_defaults" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+W: 17: Reimport 'formencode.validators' (imported line 11)
+C: 18:jqGridFilterSchema: Invalid name "jqGridFilterSchema" (should match [A-Z_][a-zA-Z0-9]+$)
+C: 18:jqGridFilterSchema: Missing docstring
+C: 19:jqGridFilterSchema: Operator not preceded by a space
+    allow_extra_fields=True
+                      ^
+C: 31:jqGridWidget: Invalid name "jqGridWidget" (should match [A-Z_][a-zA-Z0-9]+$)
+C: 31:jqGridWidget: Missing docstring
+W: 31:jqGridWidget: Class has no __init__ method
+E: 31:jqGridWidget: Module 'tw2' has no 'jquery_core' member
+E: 33:jqGridWidget: Module 'tw2' has no 'jquery_core' member
+C: 42:jqGridWidget.prepare: Missing docstring
+E: 42:jqGridWidget.prepare: Use super on an old style class
+R: 31:jqGridWidget: Too few public methods (1/2)
+W: 56:jqGridWidget.prepare: Attribute '_pager_options' defined outside __init__
+W: 55:jqGridWidget.prepare: Attribute '_options' defined outside __init__
+W:  8: Unused import tw2_jq_c_b
+************* Module tw2.jquery_jqgrid.templates
+C:  1: Missing docstring
+
+
+Report
+======
+49 statements analysed.
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |79     |74.53 |192      |-113.00    |
++----------+-------+------+---------+-----------+
+|docstring |16     |15.09 |87       |-71.00     |
++----------+-------+------+---------+-----------+
+|comment   |1      |0.94  |8        |-7.00      |
++----------+-------+------+---------+-----------+
+|empty     |10     |9.43  |8        |+2.00      |
++----------+-------+------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    formencode (tw2.jquery_jqgrid.widgets)
+      \-validators (tw2.jquery_jqgrid.widgets)
+    random 
+      \-random (tw2.jquery_jqgrid.samples)
+    tw2 
+      \-jquery_jqgrid 
+        \-widgets 
+          \-jqGridWidget (tw2.jquery_jqgrid.samples)
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |7      |7          |=          |14.29       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |3      |6          |-3.00      |0.00        |66.67    |
++---------+-------+-----------+-----------+------------+---------+
+|method   |1      |0          |+1.00      |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |0          |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |21     |24       |-3.00      |
++-----------+-------+---------+-----------+
+|refactor   |2      |6        |-4.00      |
++-----------+-------+---------+-----------+
+|warning    |19     |14       |+5.00      |
++-----------+-------+---------+-----------+
+|error      |9      |11       |-2.00      |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++---------------------------+------+--------+---------+-----------+
+|module                     |error |warning |refactor |convention |
++===========================+======+========+=========+===========+
+|tw2.jquery_jqgrid.widgets  |88.89 |31.58   |50.00    |38.10      |
++---------------------------+------+--------+---------+-----------+
+|tw2.jquery_jqgrid.base     |11.11 |47.37   |0.00     |19.05      |
++---------------------------+------+--------+---------+-----------+
+|tw2.jquery_jqgrid.samples  |0.00  |10.53   |50.00    |4.76       |
++---------------------------+------+--------+---------+-----------+
+|tw2.jquery_jqgrid.__init__ |0.00  |10.53   |0.00     |4.76       |
++---------------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|C0111      |10          |
++-----------+------------+
+|C0103      |10          |
++-----------+------------+
+|W0212      |8           |
++-----------+------------+
+|F0401      |6           |
++-----------+------------+
+|E0611      |6           |
++-----------+------------+
+|W0403      |4           |
++-----------+------------+
+|W0232      |2           |
++-----------+------------+
+|W0201      |2           |
++-----------+------------+
+|R0903      |2           |
++-----------+------------+
+|E1101      |2           |
++-----------+------------+
+|W0611      |1           |
++-----------+------------+
+|W0404      |1           |
++-----------+------------+
+|W0401      |1           |
++-----------+------------+
+|E1002      |1           |
++-----------+------------+
+|C0322      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -7.76/10 (previous run: -14.15/10)
+
