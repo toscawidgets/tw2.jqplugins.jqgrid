@@ -34,7 +34,7 @@ class jqGridWidget(tw2.jquery_core.JQueryWidget):
         tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css,
         base.jqgrid_locale, base.jqgrid_js, base.jqgrid_css,
     ]
-    template = "tw2.jquery_jqgrid.templates.jqgrid"
+    template = "mako:tw2.jquery_jqgrid.templates.jqgrid"
     
     options = twc.Param("Configuration options to pass to jqgrid", default={})
     pager_options = twc.Param("Configuration options for pager", default={})
