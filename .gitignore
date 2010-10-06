@@ -16,3 +16,4 @@ tw2forms
 tw2.jquery_core
 tw2.jquery_ui
 virtualenv-*
+*.egg

@@ -17,6 +17,6 @@ $(document).ready(
             grid.navGrid('#'+opts['pager_selector'], pager_opts);
         }
     }
-); 
+);
 </script>
 </div>
