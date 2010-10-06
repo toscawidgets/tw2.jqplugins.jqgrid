@@ -15,6 +15,7 @@ _pager_defaults = {'enableSearch': True, 'enableClear': True, 'gridModel': True}
 
 import formencode as fe
 import formencode.validators as fv
+# TODO -- how to make use of this?  a tw2 controller?
 class jqGridFilterSchema(fe.Schema):
     allow_extra_fields=True
 
@@ -34,7 +35,7 @@ class jqGridWidget(tw2.jquery_core.JQueryWidget):
         tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css,
         base.jqgrid_locale, base.jqgrid_js, base.jqgrid_css,
     ]
-    template = "mako:tw2.jquery_jqgrid.templates.jqgrid"
+    template = "tw2.jquery_jqgrid.templates.jqgrid"
     
     options = twc.Param("Configuration options to pass to jqgrid", default={})
     pager_options = twc.Param("Configuration options for pager", default={})
