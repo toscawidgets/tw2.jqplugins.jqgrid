@@ -2,7 +2,7 @@
 <div>
 <table ${tw.attrs(attrs=w.attrs)}></table>
 % if 'pager' in w.options:
-	<div id="${w.options['pager']}" />
+	<div id="${w.options['pager']}"></div>
 % endif
 <script type="text/javascript">
 $(document).ready(
