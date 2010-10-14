@@ -8,6 +8,13 @@ jqgrid_css = twjq_c.jQueryPluginCSSLink(
     basename = defaults._jqgrid_css_basename_,
     modname = 'tw2.jquery_jqgrid',
 )
+word_wrap_css = twjq_c.jQueryPluginCSSLink(
+    name=defaults._jqgrid_name_,
+    version = defaults._jqgrid_version_,
+    basename = defaults._jqgrid_css_basename_,
+    modname = 'tw2.jquery_jqgrid',
+    variant='word_wrap',
+)
 
 jqgrid_locale = twjq_c.jQueryPluginJSLink(
     name=defaults._jqgrid_name_,
