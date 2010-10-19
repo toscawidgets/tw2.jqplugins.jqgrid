@@ -7,7 +7,7 @@ f.close()
 
 setup(
     name='tw2.jquery.plugins.jqgrid',
-    version='2.0a15',
+    version='2.0b1',
     description='toscawidgets2 wrapper for the jQuery grid plugin',
     long_description=long_description,
     author='Ralph Bean',
