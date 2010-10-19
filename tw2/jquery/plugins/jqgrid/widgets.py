@@ -52,6 +52,6 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
             raise ValueError, "jqGridWidget must be supplied a " + \
                               "'url', 'data', or 'datastr' in options"
 
-        self.pager_id = self.options['pager']
+        self.pager_id = self.options.get('pager', None)
         super(jqGridWidget, self).prepare()
         self.pager_options = encoder.encode(self.pager_options)

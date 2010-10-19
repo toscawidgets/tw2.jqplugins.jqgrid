@@ -1,4 +1,3 @@
-from tw2.jquery_core.widgets import JQueryWidget
 from webob import Request
 from webob.multidict import NestedMultiDict
 from tw2.core.testbase import assert_in_xml, assert_eq_xml, WidgetTest
@@ -14,7 +13,7 @@ if hasattr(webob, 'NestedMultiDict'):
 else:
     from webob.multidict import NestedMultiDict
 
-import tw2.jquery_jqgrid.widgets as w
+import tw2.jquery.plugins.jqgrid.widgets as w
 
 class TestJQGridWidget(WidgetTest):
     widget = w.jqGridWidget
