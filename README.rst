@@ -1,5 +1,5 @@
-tw2.jquery_jqgrid
-=============
+tw2.jquery.plugins.jqgrid
+=========================
 
 :Author: Ralph Bean <ralph.bean@gmail.com>
 
@@ -8,18 +8,18 @@ tw2.jquery_jqgrid
 .. _toscawidgets2 (tw2): http://toscawidgets.org/documentation/tw2.core/
 .. _jQuery Grid Plugin: http://www.trirand.com/jqgridwiki/doku.php
 
-tw2.jquery_jqgrid is a `toscawidgets2 (tw2)`_ wrapper for the `jQuery Grid Plugin`_.
+tw2.jquery.plugins.jqgrid is a `toscawidgets2 (tw2)`_ wrapper for the `jQuery Grid Plugin`_.
 
 Live Demo
 ---------
-Peep the `live demonstration <http://craftsman.rc.rit.edu/module?module=tw2.jquery_jqgrid>`_.
+Peep the `live demonstration <http://craftsman.rc.rit.edu/module?module=tw2.jquery.plugins.jqgrid>`_.
 
 Links
 -----
-Get the `source from github <http://github.com/ralphbean/tw2.jquery_jqgrid>`_.
+Get the `source from github <http://github.com/ralphbean/tw2.jquery.plugins.jqgrid>`_.
 
-`PyPI page <http://pypi.python.org/pypi/tw2.jquery_jqgrid>`_
-and `bugs <http://github.com/ralphbean/tw2.jquery_jqgrid/issues/>`_
+`PyPI page <http://pypi.python.org/pypi/tw2.jquery.plugins.jqgrid>`_
+and `bugs <http://github.com/ralphbean/tw2.jquery.plugins.jqgrid/issues/>`_
 
 Description
 -----------
@@ -36,5 +36,5 @@ the web. Since the grid is a client-side solution loading data dynamically
 through Ajax callbacks, it can be integrated with any server-side
 technology, including PHP, ASP, Java Servlets, JSP, ColdFusion, and Perl.
 
-This module, tw2.jquery_jqgrid, provides `toscawidgets2 (tw2)`_ access to
+This module, tw2.jquery.plugins.jqgrid, provides `toscawidgets2 (tw2)`_ access to
 the `jQuery Grid Plugin`_ widget.

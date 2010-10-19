@@ -1,18 +1,18 @@
 
-import tw2.jquery_core.base as twjq_c
+import tw2.jquery.base as twjq_c
 import defaults
 
 jqgrid_css = twjq_c.jQueryPluginCSSLink(
     name=defaults._jqgrid_name_,
     version = defaults._jqgrid_version_,
     basename = defaults._jqgrid_css_basename_,
-    modname = 'tw2.jquery_jqgrid',
+    modname = 'tw2.jquery.plugins.jqgrid',
 )
 word_wrap_css = twjq_c.jQueryPluginCSSLink(
     name=defaults._jqgrid_name_,
     version = defaults._jqgrid_version_,
     basename = defaults._jqgrid_css_basename_,
-    modname = 'tw2.jquery_jqgrid',
+    modname = 'tw2.jquery.plugins.jqgrid',
     variant='word_wrap',
 )
 
@@ -21,14 +21,14 @@ jqgrid_locale = twjq_c.jQueryPluginJSLink(
     basename='grid.locale-%s' % defaults._jqgrid_locale_,
     subdir='js/i18n',
     version=defaults._jqgrid_version_,
-    modname='tw2.jquery_jqgrid',
+    modname='tw2.jquery.plugins.jqgrid',
 )
 
 jqgrid_js = twjq_c.jQueryPluginJSLink(
     name=defaults._jqgrid_name_,
     version=defaults._jqgrid_version_,
     variant='min',
-    modname='tw2.jquery_jqgrid',
+    modname='tw2.jquery.plugins.jqgrid',
 )
 
 __all__ = ['jqgrid_js', 'jqgrid_locale', 'jqgrid_css']

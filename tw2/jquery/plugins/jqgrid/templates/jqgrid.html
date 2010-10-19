@@ -1,9 +1,6 @@
-<%namespace name="tw" module="tw2.core.mako_util"/>
-<div>
-<table ${tw.attrs(attrs=w.attrs)}></table>
-% if 'pager' in w.options:
-	<div id="${w.options['pager']}"></div>
-% endif
+<div xmlns:py="http://genshi.edgewall.org/">
+<table py:attrs="w.attrs" ></table>
+<div py:if="w.pager_id" id="${w.pager_id}" />
 <script type="text/javascript">
 $(document).ready(
     function(){

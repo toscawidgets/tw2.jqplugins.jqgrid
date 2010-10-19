@@ -9,11 +9,12 @@ syntax: glob
 *.rej
 tags
 dist
+build
 .hg*
 tw2core
 tw2devtools
 tw2forms
-tw2.jquery_core
-tw2.jquery_ui
+tw2jquery
+tw2.jquery.plugins.ui
 virtualenv-*
 *.egg
