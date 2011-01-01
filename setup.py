@@ -11,7 +11,7 @@ _extra_mako = ["Mako >= 0.1.1"]
 
 setup(
     name='tw2.jquery.plugins.jqgrid',
-    version='2.0b2',
+    version='2.0b3',
     description='toscawidgets2 wrapper for the jQuery grid plugin',
     long_description=long_description,
     author='Ralph Bean',
@@ -21,7 +21,7 @@ setup(
     install_requires=[
         "tw2.core>=2.0b2",
         "tw2.jquery",
-        "tw2.jquery.plugins.ui<=2.0b3",
+        "tw2.jquery.plugins.ui<=2.0b5",
         ],
     extras_require = {
         'genshi': _extra_genshi,
