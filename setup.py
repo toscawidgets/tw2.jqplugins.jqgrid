@@ -11,7 +11,7 @@ _extra_mako = ["Mako >= 0.1.1"]
 
 setup(
     name='tw2.jquery.plugins.jqgrid',
-    version='2.0b5',
+    version='2.0b6',
     description='toscawidgets2 wrapper for the jQuery grid plugin',
     long_description=long_description,
     author='Ralph Bean',
