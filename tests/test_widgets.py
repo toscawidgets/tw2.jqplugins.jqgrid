@@ -13,7 +13,7 @@ if hasattr(webob, 'NestedMultiDict'):
 else:
     from webob.multidict import NestedMultiDict
 
-import tw2.jquery.plugins.jqgrid.widgets as w
+import tw2.jqplugins.jqgrid.widgets as w
 
 class TestJQGridWidget(WidgetTest):
     widget = w.jqGridWidget
