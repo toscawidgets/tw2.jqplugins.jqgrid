@@ -6,7 +6,7 @@ import tw2.core as twc
 
 import tw2.jquery
 import tw2.jquery.base as tw2_jq_c_b
-import tw2.jquery.plugins.ui.base as tw2_jq_ui
+import tw2.jqplugins.ui.base as tw2_jq_ui
 
 import formencode.validators as fv
 import base
@@ -35,7 +35,7 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
         tw2_jq_ui.jquery_ui_js, tw2_jq_ui.jquery_ui_css,
         base.jqgrid_locale, base.jqgrid_js, base.jqgrid_css,
     ]
-    template = "tw2.jquery.plugins.jqgrid.templates.jqgrid"
+    template = "tw2.jqplugins.jqgrid.templates.jqgrid"
    
     options = twc.Param("Configuration options to pass to jqgrid", default={})
     pager_options = twc.Param("Configuration options for pager", default={})
