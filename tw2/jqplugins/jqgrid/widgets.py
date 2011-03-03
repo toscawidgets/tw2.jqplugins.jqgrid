@@ -41,6 +41,17 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
     pager_options = twc.Param("Configuration options for pager", default={})
     pager_id = twc.Variable("options['pager'] placeholder", default=None)
 
+    prmEdit   = twc.Param("params to pass to jqgrid pager [Edit]", default={})
+    prmAdd    = twc.Param("params to pass to jqgrid pager [Add]", default={})
+    prmDel    = twc.Param("params to pass to jqgrid pager [Del]", default={})
+    prmSearch = twc.Param("params to pass to jqgrid pager [Search]", default={})
+    prmView   = twc.Param("params to pass to jqgrid pager [View]", default={})
+    # so this would be a list of dicts - and encoded as  [below]
+    # self.custom_pager_buttons = map(encoder.encode,
+    #                                 self.custom_pager_buttons)
+    custom_pager_buttons = twc.Param("custom buttons to add to jqgrid pager",
+                                     default=[])
+
     def prepare(self):
         if not self.options:
             raise ValueError, 'jqGridWidget must be supplied a dict of options'
@@ -55,3 +66,9 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
         self.pager_id = self.options.get('pager', None)
         super(jqGridWidget, self).prepare()
         self.pager_options = encoder.encode(self.pager_options)
+        self.prmEdit    = encoder.encode(self.prmEdit)
+        self.prmAdd     = encoder.encode(self.prmAdd)
+        self.prmDel     = encoder.encode(self.prmDel)
+        self.prmSearch  = encoder.encode(self.prmSearch)
+        self.prmView    = encoder.encode(self.prmView)
+        self.custom_pager_buttons = map(encoder.encode, self.custom_pager_buttons)

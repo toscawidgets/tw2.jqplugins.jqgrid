@@ -86,3 +86,26 @@ class DemoJQGridWidget(jqGridWidget):
         'width': 900,
         'height': 'auto',
     }
+    pager_options = { "search" : True, "refresh" : True, "add" : False, }
+    prmSearch = {
+        "sopt": ["cn", "bw"],
+        "caption": "Search...",
+        "multipleSearch": True,
+    }
+    custom_pager_buttons = [
+        {
+            "caption":"",
+            "buttonicon":"ui-icon-newwin",
+            'onClickButton': None,
+            'position': "last",
+            'title':"B1",
+            'cursor':"pointer"
+        },{
+            'caption':"",
+            'buttonicon':"ui-icon-cart",
+            'onClickButton':None,
+            'position': "first",
+            'title':"B2",
+            'cursor': "pointer"
+        },
+    ]

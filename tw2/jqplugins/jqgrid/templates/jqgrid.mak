@@ -14,7 +14,19 @@ $(document).ready(
             opts['pager_selector'] = opts['pager'];
             opts['pager'] = $(opts['pager'])
             var pager_opts = ${w.pager_options}
-            grid.navGrid('#'+opts['pager_selector'], pager_opts);
+
+            var pager_opts = ${w.pager_options}
+            var prmEdit = ${w.prmEdit};
+            var prmAdd = ${w.prmAdd};
+            var prmDel = ${w.prmDel};
+            var prmSearch = ${w.prmSearch};
+            var prmView  = ${w.prmView};
+
+            grid.navGrid('#'+opts['pager_selector'], pager_opts,
+                         prmEdit, prmAdd, prmDel, prmSearch, prmView)
+            % for btn in w.custom_pager_buttons:
+                .navButtonAdd('#'+opts['pager_selector'], ${btn})
+            % endfor
         }
     }
 );
