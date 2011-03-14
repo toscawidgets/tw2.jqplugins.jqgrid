@@ -5,7 +5,7 @@
 $(document).ready(
     function(){
         var opts = ${w.options};
-        var grid = $("#${w.attrs['id']}");
+        var grid = $("#${w.selector}");
         grid.jqGrid(opts);
         if ( 'pager' in opts ) {
             opts['pager_selector'] = opts['pager'];
