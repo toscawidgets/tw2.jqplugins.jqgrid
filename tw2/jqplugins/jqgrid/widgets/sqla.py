@@ -82,7 +82,11 @@ class SQLAjqGridWidget(jqGridWidget):
         def massage(entry, prop):
             data = getattr(entry, prop.key)
             if is_relation(prop) and prop.direction.name.endswith('TOMANY'):
-                data = len(data)
+                if prop.uselist:
+                    data = len(data)
+                else:
+                    data = unicode(data)
+
             return data
         return [massage(entry, prop) for prop in cls._get_properties()]
 
@@ -96,6 +100,11 @@ class SQLAjqGridWidget(jqGridWidget):
                     'local' : 'c.' + prop.remote_side[0].key,
                     'remote' : prop.local_side[0].key,
                 }
+            elif (is_relation(prop)
+                  and prop.direction.name == 'MANYTOMANY'
+                  and not prop.uselist):
+                # One to One relation.  We do nothing.
+                pass
             else:
                 # TODO -- other types of relations
                 pass
@@ -194,29 +203,34 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     @jsonify
     def request(cls, req):
-        pkey = sa.orm.class_mapper(cls.entity).primary_key[0].key
-        kw = {
-            'page' : 1,        'rows' : 10000,
-            'sord' : 'desc',   'sidx' : pkey,
-            '_search' : '',     'nd' : 0,
-        }
-        kw.update(req.params)
+        try:
+            pkey = sa.orm.class_mapper(cls.entity).primary_key[0].key
+            kw = {
+                'page' : 1,        'rows' : 10000,
+                'sord' : 'desc',   'sidx' : pkey,
+                '_search' : '',     'nd' : 0,
+            }
+            kw.update(req.params)
 
-        # Cast things to integers
-        kw['page'], kw['rows'] = map(int, [kw['page'], kw['rows']])
+            # Cast things to integers
+            kw['page'], kw['rows'] = map(int, [kw['page'], kw['rows']])
 
-        base = cls._build_sorted_query(kw)
-        entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
-        entries = cls._collapse_subqueries(entries)
-        count = base.count()
+            base = cls._build_sorted_query(kw)
+            entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
+            entries = cls._collapse_subqueries(entries)
+            count = base.count()
 
-        return {
-            "page" : kw['page'],
-            "total" : int(math.ceil(float(count) / kw['rows'])),
-            "records" : count,
-            "rows" : [
-                {
-                    "id": getattr(entry, pkey),
-                    "cell": cls._get_data(entry)
-                } for entry in entries ]
-        }
+            return {
+                "page" : kw['page'],
+                "total" : int(math.ceil(float(count) / kw['rows'])),
+                "records" : count,
+                "rows" : [
+                    {
+                        "id": getattr(entry, pkey),
+                        "cell": cls._get_data(entry)
+                    } for entry in entries ]
+            }
+        except Exception, e:
+            import traceback
+            traceback.print_exc(e)
+            print "-" * 40

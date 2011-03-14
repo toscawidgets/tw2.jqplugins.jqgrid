@@ -29,8 +29,6 @@ friends_mapping = Table(
     Column('friendee_id', Integer,
            ForeignKey('persons.id'), primary_key=True))
 
-
-
 class Person(Base):
     __tablename__ = 'persons'
     id = Column(Integer, primary_key=True)
@@ -38,16 +36,29 @@ class Person(Base):
     last_name = Column(Unicode(255), nullable=False)
     some_attribute = Column(Unicode(255), nullable=False)
 
+    pet = relation('Pet', backref='owner', uselist=False)
+
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
-Person.__mapper__.add_property('friends', relation(
-    Person,
+class Pet(Base):
+    __tablename__ = 'pets'
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(255), nullable=False)
+    variety = Column(Unicode(255), nullable=False)
+    owner_id = Column(Integer, ForeignKey('persons.id'))
+
+    def __unicode__(self):
+        return self.name
+
+
+Person.__mapper__.add_property('friends', relation(Person,
     primaryjoin=Person.id==friends_mapping.c.friendee_id,
     secondaryjoin=friends_mapping.c.friender_id==Person.id,
     secondary=friends_mapping,
     doc="List of this persons' friends!",
 ))
+
 
 Base.metadata.create_all()
 
@@ -70,6 +81,16 @@ def populateDB(sess):
                 some_attribute="Fun fact #%i" % random.randint(0,255)
             )
             sess.add(p)
+
+    pet_names = ["Spot", "Mack", "Cracker", "Fluffy", "Alabaster",
+                 "Slim Pickins", "Lil' bit", "Balthazaar", "Hadoop"]
+    varieties = ["dog", "cat", "bird", "fish", "hermit crab", "lizard"]
+
+    for person in Person.query.all():
+        pet = Pet(name=pet_names[random.randint(0,len(pet_names)-1)],
+                  variety=varieties[random.randint(0,len(varieties)-1)])
+        sess.add(pet)
+        person.pet = pet
 
     qaddafis = Person.query.filter_by(last_name='Qaddafi').all()
     mubaraks = Person.query.filter_by(last_name='Mubarak').all()
