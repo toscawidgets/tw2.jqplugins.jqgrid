@@ -55,9 +55,10 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _get_name(cls, prop):
-        if is_relation(prop) and prop.direction.name.endswith('TOMANY'):
-            return COUNT_PREFIX + prop.key
-        return prop.key
+        name = prop.key
+        if is_relation(prop) and prop.direction.name.endswith('TOMANY') and prop.uselist:
+            name = COUNT_PREFIX + prop.key
+        return name
 
     @classmethod
     def _make_model(cls, prop):
@@ -65,7 +66,7 @@ class SQLAjqGridWidget(jqGridWidget):
             'name': cls._get_name(prop),
             'align': cls._get_align(prop),
             'label': tw2.core.util.name2label(prop.key),
-            'sortable': True,
+            'sortable': not (is_relation(prop) and not prop.uselist),
         }
 
     @classmethod
@@ -134,7 +135,6 @@ class SQLAjqGridWidget(jqGridWidget):
                 # TODO -- other types of relations
 
             subquery_lookup[COUNT_PREFIX + prop.key] = ent
-
         return subquery_lookup
 
 
@@ -179,6 +179,7 @@ class SQLAjqGridWidget(jqGridWidget):
             if attribute == kw['sidx']:
                 sort_on = getattr(subqueries[attribute].c, kw['sidx'])
             else:
+                # TODO -- remove this!
                 print attribute, "was not", kw['sidx']
 
         query = query.order_by(orders[kw['sord']](sort_on))
@@ -218,9 +219,6 @@ class SQLAjqGridWidget(jqGridWidget):
         })
 
         _options.update(type(self)._get_metadata())
-
-        import pprint
-        pprint.pprint(_options)
 
         self.options = encoder.encode(_options)
 
