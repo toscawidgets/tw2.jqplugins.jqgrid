@@ -106,7 +106,6 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
         super(DemoSQLAJQGridWidget, self).prepare()
 
     entity = Person
-    show_relations = False
 
     options = {
         'url': '/db_jqgrid/',

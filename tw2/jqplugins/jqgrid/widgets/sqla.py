@@ -48,7 +48,6 @@ class SQLAjqGridWidget(jqGridWidget):
     def _get_metadata(cls):
         props = cls._get_properties()
         colmodel = [cls._make_model(p) for p in props]
-
         return {
             'colNames' : [e['label'] for e in colmodel],
             'colModel' : colmodel
@@ -56,8 +55,12 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _get_data(cls, entry):
-        props = cls._get_properties()
-        return [getattr(entry, p.key) for p in props]
+        def massage(entry, prop):
+            data = getattr(entry, prop.key)
+            if is_relation(prop) and prop.direction.name.endswith('TOMANY'):
+                data = len(data)
+            return data
+        return [massage(entry, prop) for prop in cls._get_properties()]
 
     def prepare(self):
         if not getattr(self, 'entity', None):
