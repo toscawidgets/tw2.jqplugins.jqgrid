@@ -100,6 +100,8 @@ class SQLAjqGridWidget(jqGridWidget):
                     data = len(data)
                 else:
                     data = unicode(data)
+            elif is_relation(prop) and not prop.uselist:
+                data = unicode(data)
 
             return data
         return [massage(entry, prop) for prop in cls._get_properties()]
@@ -107,21 +109,31 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _get_subquery_lookup(cls):
         subquery_lookup = {}
+        # TODO -- the *meaning* of local and remote are used incorrectly everywhere :)
         for prop in cls._get_properties():
-            if is_relation(prop) and prop.direction.name == 'MANYTOMANY':
-                subquery_lookup[COUNT_PREFIX + prop.key] = {
+            if (is_relation(prop)
+                and prop.direction.name.endswith('TOMANY')
+                and not prop.uselist):
+                continue # One to One relation.  We do nothing.
+            elif is_relation(prop) and prop.direction.name == 'MANYTOMANY':
+                ent = {
                     'cls' : prop.secondary,
                     'local' : 'c.' + prop.remote_side[0].key,
                     'remote' : prop.local_side[0].key,
                 }
-            elif (is_relation(prop)
-                  and prop.direction.name == 'MANYTOMANY'
-                  and not prop.uselist):
-                # One to One relation.  We do nothing.
-                pass
+            elif is_relation(prop) and prop.direction.name == 'ONETOMANY':
+                ent = {
+                    'cls' : prop.mapper._identity_class,
+                    'local' : prop.remote_side[0].key,
+                    'remote' : prop.local_side[0].key,
+                }
+            elif is_relation(prop) and prop.direction.name == 'MANYTOONE':
+                continue # TODO
             else:
+                continue
                 # TODO -- other types of relations
-                pass
+
+            subquery_lookup[COUNT_PREFIX + prop.key] = ent
 
         return subquery_lookup
 
