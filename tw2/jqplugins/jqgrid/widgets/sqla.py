@@ -12,7 +12,13 @@ import math
 
 COUNT_PREFIX = '__count_'
 
-dotted_getattr = lambda obj, field : reduce(getattr, field.split('.'), obj)
+def dotted_getattr(obj, field, *args):
+    try:
+        result = reduce(getattr, field.split('.'), obj)
+    except AttributeError, e:
+        result = args[0]
+    finally:
+        return result
     
 def is_attribute(x):
     return type(x) is sqlalchemy.orm.properties.ColumnProperty
@@ -66,6 +72,14 @@ class SQLAjqGridWidget(jqGridWidget):
     def _get_properties(cls):
         props = [p for p in sa.orm.class_mapper(cls.entity).iterate_properties
                  if not cls.exclude_property(p)]
+
+        # Reorder properties to put relationships last
+        def relation_sorter(x, y):
+            xname = dotted_getattr(x, 'direction.name', 'a')
+            yname = dotted_getattr(y, 'direction.name', 'a')
+            return -1 * cmp(xname, yname)
+        props.sort(relation_sorter)
+
         return props
 
     @classmethod
