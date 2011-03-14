@@ -3,10 +3,13 @@ import tw2.core.util
 from tw2.core.resources import encoder
 
 import sqlalchemy as sa
+from sqlalchemy import or_, and_
 import sqlalchemy.types as sat
 import sqlalchemy.orm.properties
 
 from tw2.jqplugins.jqgrid.widgets.core import jqGridWidget
+
+import simplejson
 
 import math
 
@@ -137,6 +140,51 @@ class SQLAjqGridWidget(jqGridWidget):
             subquery_lookup[COUNT_PREFIX + prop.key] = ent
         return subquery_lookup
 
+    @classmethod
+    def _query_filter(cls, oper, col, string):
+        if oper == 'eq':
+            return col == string
+        elif oper == 'ne':
+            return col != string
+        elif  oper == 'lt':
+            return col < string
+        elif oper == 'le':
+            return col <= string
+        elif oper == 'gt':
+            return col > string
+        elif oper == 'ge':
+            return col >= string
+        elif oper == 'bw':
+            return col.like(string + '%')
+        elif oper == 'ew':
+            return col.like('%' + string)
+        elif oper == 'cn':
+            return col.like('%' + string + '%')
+
+    @classmethod
+    def _searched_query(cls, query, kw):
+        print "inside _searched_query"
+        # New jqGrid toolbar filter API
+        if 'filters' in kw:
+            print "filters yes"
+            filters = simplejson.loads(kw['filters'])
+            import pprint
+            pprint.pprint(filters)
+            if filters['groupOp'] == 'AND':
+                and_query = []
+                for rule in filters['rules']:
+                    col = getattr(cls.entity, rule['field'])
+                    and_query.append(
+                        cls._query_filter(rule['op'], col, rule['data']))
+                query = query.filter(and_(*and_query))
+            elif filters['groupOp'] == 'OR':
+                or_query = []
+                for rule in filters['rules']:
+                    col = getattr(cls.entity, rule['field'])
+                    or_query.append(
+                        cls._query_filter(rule['op'], col, rule['data']))
+                query = query.filter(or_(*or_query))
+        return query
 
     @classmethod
     def _build_sorted_query(cls, kw):
@@ -233,7 +281,7 @@ class SQLAjqGridWidget(jqGridWidget):
             kw = {
                 'page' : 1,        'rows' : 10000,
                 'sord' : 'desc',   'sidx' : pkey,
-                '_search' : '',     'nd' : 0,
+                '_search' : 'False',     'nd' : 0,
             }
             kw.update(req.params)
 
@@ -241,6 +289,10 @@ class SQLAjqGridWidget(jqGridWidget):
             kw['page'], kw['rows'] = map(int, [kw['page'], kw['rows']])
 
             base = cls._build_sorted_query(kw)
+
+            if kw['_search'] and kw['_search'].lower() == 'true':
+                base = cls._searched_query(base, kw)
+
             entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
             entries = cls._collapse_subqueries(entries)
             count = base.count()
