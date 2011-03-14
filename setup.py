@@ -22,6 +22,7 @@ setup(
         "tw2.core>=2.0b2",
         "tw2.jquery",
         "tw2.jqplugins.ui>=2.0b7",
+        "tw2.sqla",
         ],
     extras_require = {
         'genshi': _extra_genshi,

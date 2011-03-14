@@ -18,3 +18,4 @@ tw2jquery
 tw2.jqplugins.ui
 virtualenv-*
 *.egg
+sample_sqla.db
