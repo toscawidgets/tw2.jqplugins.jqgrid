@@ -29,6 +29,9 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
         'width': 900,
         'height': 'auto',
     }
+
+    prmFilter = {'stringResult': True, 'searchOnEnter': False}
+
     pager_options = { "search" : True, "refresh" : True, "add" : False, }
 
 

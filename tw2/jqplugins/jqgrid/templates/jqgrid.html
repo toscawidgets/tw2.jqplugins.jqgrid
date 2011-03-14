@@ -24,6 +24,10 @@ $(document).ready(
                 .navButtonAdd('#'+opts['pager_selector'], ${btn})
             </py:for>;
         }
+        <py:if test="w._prmFilter">
+        var prmFilter = ${w.prmFilter};
+        grid.jqGrid('filterToolbar', prmFilter);
+        </py:if>
     }
 );
 </script>

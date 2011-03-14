@@ -41,6 +41,8 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
     pager_options = twc.Param("Configuration options for pager", default={})
     pager_id = twc.Variable("options['pager'] placeholder", default=None)
 
+    prmFilter = twc.Param("params to pass to jqgrid filter toolbar", default={})
+    _prmFilter = twc.Param("params to pass to jqgrid filter toolbar", default={})
     prmEdit   = twc.Param("params to pass to jqgrid pager [Edit]", default={})
     prmAdd    = twc.Param("params to pass to jqgrid pager [Add]", default={})
     prmDel    = twc.Param("params to pass to jqgrid pager [Del]", default={})
@@ -66,6 +68,8 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
         self.pager_id = self.options.get('pager', None)
         super(jqGridWidget, self).prepare()
         self.pager_options = encoder.encode(self.pager_options)
+        if self.prmFilter: self._prmFilter = True
+        self.prmFilter  = encoder.encode(self.prmFilter)
         self.prmEdit    = encoder.encode(self.prmEdit)
         self.prmAdd     = encoder.encode(self.prmAdd)
         self.prmDel     = encoder.encode(self.prmDel)

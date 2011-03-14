@@ -15,7 +15,7 @@ $(document).ready(
             opts['pager'] = $(opts['pager'])
             var pager_opts = ${w.pager_options}
 
-            var pager_opts = ${w.pager_options}
+
             var prmEdit = ${w.prmEdit};
             var prmAdd = ${w.prmAdd};
             var prmDel = ${w.prmDel};
@@ -27,7 +27,12 @@ $(document).ready(
             % for btn in w.custom_pager_buttons:
                 .navButtonAdd('#'+opts['pager_selector'], ${btn})
             % endfor
+
         }
+		% if w._prmFilter:
+		var prmFilter = ${w.prmFilter};
+		grid.jqGrid('filterToolbar', prmFilter);
+		% endif
     }
 );
 </script>
