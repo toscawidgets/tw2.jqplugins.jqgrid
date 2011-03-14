@@ -18,6 +18,8 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
 
     entity = model.Person
 
+    excluded_columns = ['id', 'job_id']
+
     options = {
         'url': '/db_jqgrid/',
         'rowNum':15,
