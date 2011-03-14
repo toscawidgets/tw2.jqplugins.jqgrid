@@ -158,6 +158,7 @@ class SQLAjqGridWidget(jqGridWidget):
                 sqlalchemy.sql.func.count('*').label(attribute)
             ).group_by(dotted_getattr(l['cls'], l['local']))
 
+            # TODO -- remove this?  Currently unused vestigial organ.
             if 'subfilter' in l:
                 subquery = subquery.filter(l['subfilter'])
 
