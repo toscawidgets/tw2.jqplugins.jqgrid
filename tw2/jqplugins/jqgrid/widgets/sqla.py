@@ -3,6 +3,7 @@ import tw2.core.util
 from tw2.core.resources import encoder
 
 import sqlalchemy as sa
+import sqlalchemy.types as sat
 import sqlalchemy.orm.properties
 
 from tw2.jqplugins.jqgrid.widgets.core import jqGridWidget
@@ -31,11 +32,24 @@ class SQLAjqGridWidget(jqGridWidget):
         excluded_by_relation  = is_relation(p) and not cls.show_relations
         return explicitly_excluded or excluded_by_attribute or excluded_by_relation
 
+
+    @classmethod
+    def _get_align(cls, prop):
+        if is_relation(prop) and prop.direction.name.endswith('TOMANY'):
+            return 'right'
+
+        for col in getattr(prop, 'columns', []):
+            if isinstance(col.type, sat.Integer):
+                return 'right'
+
+        return 'left'
+
     @classmethod
     def _make_model(cls, prop):
         return {
             'name': prop.key,
             'label': tw2.core.util.name2label(prop.key),
+            'align': cls._get_align(prop),
         }
 
     @classmethod
