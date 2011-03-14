@@ -5,8 +5,8 @@ These samples will appear in the WidgetBrowser
 
 See http://toscawidgets.org/documentation/WidgetBrowser for more information
 """
-from widgets import jqGridWidget
-from base import word_wrap_css
+from tw2.jqplugins.jqgrid.widgets import jqGridWidget
+from tw2.jqplugins.jqgrid.base import word_wrap_css
 from random import random
 from random import randint
 r = lambda x : randint(0,x-1)

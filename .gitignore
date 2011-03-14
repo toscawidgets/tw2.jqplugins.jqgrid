@@ -12,7 +12,7 @@ dist
 build
 .hg*
 tw2core
-tw2devtools
+tw2.devtools
 tw2forms
 tw2jquery
 tw2.jqplugins.ui

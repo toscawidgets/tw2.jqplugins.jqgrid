@@ -9,7 +9,7 @@ import tw2.jquery.base as tw2_jq_c_b
 import tw2.jqplugins.ui.base as tw2_jq_ui
 
 import formencode.validators as fv
-import base
+from tw2.jqplugins.jqgrid import base
 
 _pager_defaults = {'enableSearch': True, 'enableClear': True, 'gridModel': True}
 
