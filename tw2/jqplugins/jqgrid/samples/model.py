@@ -7,6 +7,9 @@ from sqlalchemy.orm import relation, backref
 from sqlalchemy.ext.declarative import declarative_base
 
 import tw2.sqla as tws
+    
+import random
+
 
 session = tws.transactional_session()
 Base = declarative_base(metadata=MetaData('sqlite:///sample_sqla.db'))
@@ -56,8 +59,6 @@ def populateDB(sess):
     if Person.query.count() > 0:
         print "Not populating DB.  Already stuff in there."
         return
-
-    import random
 
     firsts = ["Sally", "Suzie", "Sandy",
               "John", "Jim", "Joseph"]
