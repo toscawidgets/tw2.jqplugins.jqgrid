@@ -12,7 +12,7 @@ import random
 
 
 session = tws.transactional_session()
-Base = declarative_base(metadata=MetaData('sqlite:///sample_sqla.db'))
+Base = declarative_base(metadata=MetaData('sqlite:///%s.db' % __name__))
 Base.query = session.query_property()
 
 friends_mapping = Table(

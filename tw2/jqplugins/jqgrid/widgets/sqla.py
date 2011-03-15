@@ -223,9 +223,6 @@ class SQLAjqGridWidget(jqGridWidget):
 
             if attribute == kw['sidx']:
                 sort_on = getattr(subqueries[attribute].c, kw['sidx'])
-            else:
-                # TODO -- remove this!
-                print attribute, "was not", kw['sidx']
 
         query = query.order_by(orders[kw['sord']](sort_on))
         return query
