@@ -70,6 +70,7 @@ class SQLAjqGridWidget(jqGridWidget):
             'align': cls._get_align(prop),
             'label': tw2.core.util.name2label(prop.key),
             'sortable': not (is_relation(prop) and not prop.uselist),
+            'search' : not is_relation(prop),
         }
 
     @classmethod
