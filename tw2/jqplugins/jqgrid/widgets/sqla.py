@@ -164,13 +164,8 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _searched_query(cls, query, kw):
-        print "inside _searched_query"
-        # New jqGrid toolbar filter API
         if 'filters' in kw:
-            print "filters yes"
             filters = simplejson.loads(kw['filters'])
-            import pprint
-            pprint.pprint(filters)
             if filters['groupOp'] == 'AND':
                 and_query = []
                 for rule in filters['rules']:
