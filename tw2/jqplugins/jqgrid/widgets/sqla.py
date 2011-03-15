@@ -71,6 +71,7 @@ class SQLAjqGridWidget(jqGridWidget):
             'label': tw2.core.util.name2label(prop.key),
             'sortable': not (is_relation(prop) and not prop.uselist),
             'search' : not is_relation(prop),
+            'searchoptions' : {'sopt':['cn']},
         }
 
     @classmethod
