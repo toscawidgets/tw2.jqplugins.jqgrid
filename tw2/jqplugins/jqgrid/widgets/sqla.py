@@ -232,13 +232,14 @@ class SQLAjqGridWidget(jqGridWidget):
         if not cls._get_subquery_lookup():
             for ent in entries:
                 yield ent
-        properties = cls._get_properties()
-        for entry in entries:
-            obj = getattr(entry, cls.entity.__name__)
-            for prop in properties:
-                if prop.key.startswith(COUNT_PREFIX):
-                    setattr(obj, getattr(entry, COUNT_PREFIX + prop.key))
-            yield obj
+        else:
+            properties = cls._get_properties()
+            for entry in entries:
+                obj = getattr(entry, cls.entity.__name__)
+                for prop in properties:
+                    if prop.key.startswith(COUNT_PREFIX):
+                        setattr(obj, getattr(entry, COUNT_PREFIX + prop.key))
+                yield obj
 
 
     def prepare(self):
@@ -292,6 +293,11 @@ class SQLAjqGridWidget(jqGridWidget):
 
             entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
             entries = cls._collapse_subqueries(entries)
+
+            for i in range(len(entries)):
+                if hasattr(entries[i], 'isoformat'):
+                    entry[i] = entry[i].isoformat()
+
             count = base.count()
 
             return {
