@@ -229,6 +229,9 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _collapse_subqueries(cls, entries):
+        if not cls._get_subquery_lookup():
+            for ent in entries:
+                yield ent
         properties = cls._get_properties()
         for entry in entries:
             obj = getattr(entry, cls.entity.__name__)
