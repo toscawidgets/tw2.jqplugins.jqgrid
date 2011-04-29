@@ -10,7 +10,7 @@ import sqlalchemy.orm.properties
 from tw2.jqplugins.jqgrid.widgets.core import jqGridWidget
 
 import simplejson
-
+import datetime
 import math
 
 COUNT_PREFIX = '__count_'
@@ -32,6 +32,8 @@ class SQLAjqGridWidget(jqGridWidget):
     entity = tw2.core.Param("sqlalchemy class to render", request_local=False)
     excluded_columns = tw2.core.Param(
         "list of names of columns to be excluded", default=[])
+    datetime_format = tw2.core.Param(
+        "format string for formatting datetime objects", default="%x")
 
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
@@ -109,8 +111,8 @@ class SQLAjqGridWidget(jqGridWidget):
             elif is_relation(prop) and not prop.uselist:
                 data = unicode(data)
 
-            if hasattr(data, 'isoformat'):
-                data = data.isoformat()
+            if isinstance(data, datetime.datetime):
+                data = data.strftime(cls.datetime_format)
 
             return data
         return [massage(entry, prop) for prop in cls._get_properties()]
