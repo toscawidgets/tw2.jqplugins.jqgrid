@@ -109,6 +109,9 @@ class SQLAjqGridWidget(jqGridWidget):
             elif is_relation(prop) and not prop.uselist:
                 data = unicode(data)
 
+            if hasattr(data, 'isoformat'):
+                data = data.isoformat()
+
             return data
         return [massage(entry, prop) for prop in cls._get_properties()]
 
@@ -296,11 +299,6 @@ class SQLAjqGridWidget(jqGridWidget):
 
             entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
             entries = cls._collapse_subqueries(entries)
-
-            for i in range(len(entries)):
-                if hasattr(entries[i], 'isoformat'):
-                    entry[i] = entry[i].isoformat()
-
             count = base.count()
 
             return {

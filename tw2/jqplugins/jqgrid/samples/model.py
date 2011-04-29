@@ -1,6 +1,6 @@
 import transaction
 from sqlalchemy import (
-    Column, Integer, Unicode,
+    Column, Integer, Unicode, DateTime,
     MetaData, Table, ForeignKey,
 )
 from sqlalchemy.orm import relation, backref
@@ -9,7 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 import tw2.sqla as tws
     
 import random
-
+from random import randint
+from datetime import datetime, timedelta
 
 session = tws.transactional_session()
 Base = declarative_base(metadata=MetaData('sqlite:///%s.db' % __name__))
@@ -28,6 +29,9 @@ class Person(Base):
     first_name = Column(Unicode(255), nullable=False)
     last_name = Column(Unicode(255), nullable=False)
     some_attribute = Column(Unicode(255), nullable=False)
+    birf_day = Column(
+        DateTime, nullable=False,
+        default=lambda:datetime.now()-timedelta(randint(0, 2000)))
 
     # One-to-one
     pet = relation('Pet', backref='owner', uselist=False)
