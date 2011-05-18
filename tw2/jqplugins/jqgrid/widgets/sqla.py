@@ -22,7 +22,7 @@ def dotted_getattr(obj, field, *args):
         result = args[0]
     finally:
         return result
-    
+
 def is_attribute(x):
     return type(x) is sqlalchemy.orm.properties.ColumnProperty
 def is_relation(x):
@@ -38,7 +38,7 @@ class SQLAjqGridWidget(jqGridWidget):
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
 
-    
+
     @classmethod
     def exclude_property(cls, p):
         explicitly_excluded = p.key in cls.excluded_columns
@@ -260,9 +260,9 @@ class SQLAjqGridWidget(jqGridWidget):
         if 'url' not in self.options:
             raise ValueError, "SQLAjqGridWidget options must contain 'url'"
 
-        
+
         _options = self.options
-        super(SQLAjqGridWidget, self).prepare() 
+        super(SQLAjqGridWidget, self).prepare()
 
         pkey = self.entity.__mapper__.primary_key[0].key
         _options.update({

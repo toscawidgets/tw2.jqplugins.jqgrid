@@ -36,7 +36,7 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
         base.jqgrid_locale, base.jqgrid_js, base.jqgrid_css,
     ]
     template = "tw2.jqplugins.jqgrid.templates.jqgrid"
-   
+
     options = twc.Param("Configuration options to pass to jqgrid", default={})
     pager_options = twc.Param("Configuration options for pager", default={})
     pager_id = twc.Variable("options['pager'] placeholder", default=None)
@@ -57,7 +57,7 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
     def prepare(self):
         if not self.options:
             raise ValueError, 'jqGridWidget must be supplied a dict of options'
-        
+
         if (
             not 'url' in self.options and
             not 'data' in self.options and
