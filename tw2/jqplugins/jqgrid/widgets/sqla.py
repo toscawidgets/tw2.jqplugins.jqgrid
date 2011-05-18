@@ -264,7 +264,7 @@ class SQLAjqGridWidget(jqGridWidget):
         _options = self.options
         super(SQLAjqGridWidget, self).prepare()
 
-        pkey = self.entity.__mapper__.primary_key[0].key
+        pkey = sa.orm.class_mapper(self.entity).primary_key[0].key
         _options.update({
             'pager': "%s_pager" % self.id,
             'caption': tw2.core.util.name2label(self.entity.__name__),
