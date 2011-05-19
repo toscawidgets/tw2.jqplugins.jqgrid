@@ -103,7 +103,9 @@ class SQLAjqGridWidget(jqGridWidget):
     def _get_data(cls, entry):
         def massage(entry, prop):
             data = getattr(entry, prop.key)
-            if is_relation(prop) and prop.direction.name.endswith('TOMANY'):
+            if hasattr(data, '__unicode__'):
+                data = data.__unicode__()
+            elif is_relation(prop) and prop.direction.name.endswith('TOMANY'):
                 if prop.uselist:
                     data = len(data)
                 else:
