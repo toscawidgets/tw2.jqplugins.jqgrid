@@ -42,7 +42,6 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
     pager_id = twc.Variable("options['pager'] placeholder", default=None)
 
     prmFilter = twc.Param("params to pass to jqgrid filter toolbar", default={})
-    _prmFilter = twc.Param("params to pass to jqgrid filter toolbar", default={})
     prmEdit   = twc.Param("params to pass to jqgrid pager [Edit]", default={})
     prmAdd    = twc.Param("params to pass to jqgrid pager [Add]", default={})
     prmDel    = twc.Param("params to pass to jqgrid pager [Del]", default={})
@@ -67,12 +66,14 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
 
         self.pager_id = self.options.get('pager', None)
         super(jqGridWidget, self).prepare()
-        self.pager_options = encoder.encode(self.pager_options)
-        if self.prmFilter: self._prmFilter = True
-        self.prmFilter  = encoder.encode(self.prmFilter)
-        self.prmEdit    = encoder.encode(self.prmEdit)
-        self.prmAdd     = encoder.encode(self.prmAdd)
-        self.prmDel     = encoder.encode(self.prmDel)
-        self.prmSearch  = encoder.encode(self.prmSearch)
-        self.prmView    = encoder.encode(self.prmView)
-        self.custom_pager_buttons = map(encoder.encode, self.custom_pager_buttons)
+        self._pager_options = encoder.encode(self.pager_options)
+        self.__prmFilter = False
+        if self.prmFilter: self.__prmFilter = True
+        self._prmFilter  = encoder.encode(self.prmFilter)
+        self._prmEdit    = encoder.encode(self.prmEdit)
+        self._prmAdd     = encoder.encode(self.prmAdd)
+        self._prmDel     = encoder.encode(self.prmDel)
+        self._prmSearch  = encoder.encode(self.prmSearch)
+        self._prmView    = encoder.encode(self.prmView)
+        self._custom_pager_buttons = map(encoder.encode,
+                                         self.custom_pager_buttons)

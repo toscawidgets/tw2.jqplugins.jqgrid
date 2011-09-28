@@ -16,21 +16,21 @@ $(document).ready(
             var pager_opts = ${w.pager_options}
 
 
-            var prmEdit = ${w.prmEdit};
-            var prmAdd = ${w.prmAdd};
-            var prmDel = ${w.prmDel};
-            var prmSearch = ${w.prmSearch};
-            var prmView  = ${w.prmView};
+            var prmEdit = ${w._prmEdit};
+            var prmAdd = ${w._prmAdd};
+            var prmDel = ${w._prmDel};
+            var prmSearch = ${w._prmSearch};
+            var prmView  = ${w._prmView};
 
             grid.navGrid('#'+opts['pager_selector'], pager_opts,
                          prmEdit, prmAdd, prmDel, prmSearch, prmView)
-            % for btn in w.custom_pager_buttons:
+            % for btn in w._custom_pager_buttons:
                 .navButtonAdd('#'+opts['pager_selector'], ${btn})
             % endfor
 
         }
-		% if w._prmFilter:
-		var prmFilter = ${w.prmFilter};
+		% if w.__prmFilter:
+		var prmFilter = ${w._prmFilter};
 		grid.jqGrid('filterToolbar', prmFilter);
 		% endif
     }
