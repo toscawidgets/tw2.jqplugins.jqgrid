@@ -13,7 +13,7 @@ $(document).ready(
         if ( 'pager' in opts ) {
             opts['pager_selector'] = opts['pager'];
             opts['pager'] = $(opts['pager'])
-            var pager_opts = ${w.pager_options}
+            var pager_opts = ${w._pager_options}
 
 
             var prmEdit = ${w._prmEdit};
@@ -29,7 +29,7 @@ $(document).ready(
             % endfor
 
         }
-		% if w.__prmFilter:
+		% if w.prmFilter:
 		var prmFilter = ${w._prmFilter};
 		grid.jqGrid('filterToolbar', prmFilter);
 		% endif

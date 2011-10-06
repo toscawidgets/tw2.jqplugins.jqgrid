@@ -67,8 +67,6 @@ class jqGridWidget(tw2_jq_ui.JQueryUIWidget):
         self.pager_id = self.options.get('pager', None)
         super(jqGridWidget, self).prepare()
         self._pager_options = encoder.encode(self.pager_options)
-        self.__prmFilter = False
-        if self.prmFilter: self.__prmFilter = True
         self._prmFilter  = encoder.encode(self.prmFilter)
         self._prmEdit    = encoder.encode(self.prmEdit)
         self._prmAdd     = encoder.encode(self.prmAdd)
