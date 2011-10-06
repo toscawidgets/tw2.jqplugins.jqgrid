@@ -46,10 +46,16 @@ $(document).ready(
             opts['pager_selector'] = opts['pager'];
             opts['pager'] = $(opts['pager'])
             var pager_opts = {}
-            grid.navGrid('#'+opts['pager_selector'], pager_opts);
+            var prmEdit = {};
+            var prmAdd = {};
+            var prmDel = {};
+            var prmSearch = {};
+            var prmView  = {};
+            grid.navGrid('#'+opts['pager_selector'], pager_opts,
+                         prmEdit, prmAdd, prmDel, prmSearch, prmView)
+            ;
         }
     }
 );
 </script>
-</div>
-"""
+</div>"""
