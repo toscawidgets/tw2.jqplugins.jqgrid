@@ -165,11 +165,11 @@ class SQLAjqGridWidget(jqGridWidget):
         elif oper == 'ge':
             return col >= string
         elif oper == 'bw':
-            return col.like(string + '%')
+            return col.ilike(string + '%')
         elif oper == 'ew':
-            return col.like('%' + string)
+            return col.ilike('%' + string)
         elif oper == 'cn':
-            return col.like('%' + string + '%')
+            return col.ilike('%' + string + '%')
 
     @classmethod
     def _searched_query(cls, query, kw):
