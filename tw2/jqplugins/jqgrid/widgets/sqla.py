@@ -96,7 +96,7 @@ class SQLAjqGridWidget(jqGridWidget):
         props = cls._get_properties()
         colmodel = [cls._make_model(p) for p in props] if not cls.colModel else cls.colModel
         return {
-            'colNames' : [e['label'] for e in colmodel if hasattr(e, 'label') else 'No Label Set'],
+            'colNames' : [e.get('label', "No Label Set") for e in colmodel],
             'colModel' : colmodel
         }
 
