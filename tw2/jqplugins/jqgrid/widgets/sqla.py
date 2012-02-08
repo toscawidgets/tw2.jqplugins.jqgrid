@@ -34,6 +34,7 @@ class SQLAjqGridWidget(jqGridWidget):
         "list of names of columns to be excluded", default=[])
     datetime_format = tw2.core.Param(
         "format string for formatting datetime objects", default="%x")
+    colModel = tw2.core.Param("list of columns to display", default=[])
 
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
@@ -93,9 +94,9 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _get_metadata(cls):
         props = cls._get_properties()
-        colmodel = [cls._make_model(p) for p in props]
+        colmodel = [cls._make_model(p) for p in props] if not cls.colModel else cls.colModel
         return {
-            'colNames' : [e['label'] for e in colmodel],
+            'colNames' : [e['label'] for e in colmodel if hasattr(e, 'label') else 'No Label Set'],
             'colModel' : colmodel
         }
 
