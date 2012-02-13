@@ -38,3 +38,19 @@ technology, including PHP, ASP, Java Servlets, JSP, ColdFusion, and Perl.
 
 This module, tw2.jqplugins.jqgrid, provides `toscawidgets2 (tw2)`_ access to
 the `jQuery Grid Plugin`_ widget.
+
+Hacking
+-------
+
+Fork the project on github.  Clone your repo locally.  Then::
+
+::
+
+  $ cd tw2.jqplugins.jqgrid
+  $ virtualenv ~/myenv
+  $ source ~/myenv/bin/activate
+  $ python setup.py develop
+  $ pip install tw2.devtools
+  $ paster tw2.browser
+
+
