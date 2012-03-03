@@ -44,8 +44,6 @@ Hacking
 
 Fork the project on github.  Clone your repo locally.  Then::
 
-::
-
   $ cd tw2.jqplugins.jqgrid
   $ virtualenv ~/myenv
   $ source ~/myenv/bin/activate
