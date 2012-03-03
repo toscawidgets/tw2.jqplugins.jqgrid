@@ -45,10 +45,9 @@ Hacking
 Fork the project on github.  Clone your repo locally.  Then::
 
   $ cd tw2.jqplugins.jqgrid
-  $ virtualenv ~/myenv
-  $ source ~/myenv/bin/activate
-  $ python setup.py develop
-  $ pip install tw2.devtools
-  $ paster tw2.browser
+  $ mkvirtualenv jqgrid
+  (jqgrid) $ python setup.py develop
+  (jqgrid) $ pip install tw2.devtools
+  (jqgrid) $ paster tw2.browser
 
 
