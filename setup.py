@@ -19,7 +19,7 @@ setup(
     author='Ralph Bean',
     author_email='ralph.bean@gmail.com',
     license='MIT',
-    url='http://github.com/ralphbean/tw2.jqplugins.jqgrid',
+    url='http://github.com/toscawidgets/tw2.jqplugins.jqgrid',
     install_requires=[
         "tw2.core>=2.0b2",
         "tw2.jquery",
