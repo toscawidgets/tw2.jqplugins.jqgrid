@@ -26,7 +26,7 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
         'rowList':[15,30,50],
         'viewrecords':True,
         'imgpath': 'scripts/jqGrid/themes/green/images',
-        'width': 900,
+        'width': 590,
         'height': 'auto',
     }
 

@@ -67,7 +67,7 @@ class DemoJQGridWidget(jqGridWidget):
         'colModel' : [
             {
                 'name':'authors',
-                'width':75,
+                'width':50,
                 'align':'center',
             },{
                 'name':'title',
@@ -83,7 +83,7 @@ class DemoJQGridWidget(jqGridWidget):
         'rowList':[15,30,50],
         'viewrecords':True,
         'imgpath': 'scripts/jqGrid/themes/green/images',
-        'width': 900,
+        'width': 590,
         'height': 'auto',
     }
     pager_options = { "search" : True, "refresh" : True, "add" : False, }

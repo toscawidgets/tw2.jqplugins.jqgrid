@@ -1,7 +1,7 @@
 tw2.jqplugins.jqgrid
 =========================
 
-:Author: Ralph Bean <ralph.bean@gmail.com>
+:Author: Ralph Bean <rbean@redhat.com>
 
 .. comment: split here
 
@@ -16,10 +16,10 @@ Peep the `live demonstration <http://tw2-demos.threebean.org/module?module=tw2.j
 
 Links
 -----
-Get the `source from github <http://github.com/ralphbean/tw2.jqplugins.jqgrid>`_.
+Get the `source from github <http://github.com/toscawidgets/tw2.jqplugins.jqgrid>`_.
 
 `PyPI page <http://pypi.python.org/pypi/tw2.jqplugins.jqgrid>`_
-and `bugs <http://github.com/ralphbean/tw2.jqplugins.jqgrid/issues/>`_
+and `bugs <http://github.com/toscawidgets/tw2.jqplugins.jqgrid/issues/>`_
 
 Description
 -----------
@@ -39,15 +39,21 @@ technology, including PHP, ASP, Java Servlets, JSP, ColdFusion, and Perl.
 This module, tw2.jqplugins.jqgrid, provides `toscawidgets2 (tw2)`_ access to
 the `jQuery Grid Plugin`_ widget.
 
-Hacking
--------
+Sampling tw2.jqplugins.jqgrid in the WidgetBrowser
+--------------------------------------------------
 
-Fork the project on github.  Clone your repo locally.  Then::
+The best way to scope out ``tw2.jqplugins.jqgrid`` is to load its widgets in the
+``tw2.devtools`` WidgetBrowser.  To see the source code that configures them,
+check out ``tw2.jqplugins.jqgrid/tw2/jqplugins/jqgrid/samples.py``
 
-  $ cd tw2.jqplugins.jqgrid
-  $ mkvirtualenv jqgrid
-  (jqgrid) $ python setup.py develop
-  (jqgrid) $ pip install tw2.devtools
-  (jqgrid) $ paster tw2.browser
+To give it a try you'll need git, python, and `virtualenvwrapper
+<http://pypi.python.org/pypi/virtualenvwrapper>`_.  Run::
 
+    $ git clone git://github.com/toscawidgets/tw2.jqplugins.jqgrid.git
+    $ cd tw2.jqplugins.jqgrid
+    $ mkvirtualenv tw2.jqplugins.jqgrid
+    (tw2.jqplugins.jqgrid) $ pip install tw2.devtools
+    (tw2.jqplugins.jqgrid) $ python setup.py develop
+    (tw2.jqplugins.jqgrid) $ paster tw2.browser
 
+...and browse to http://localhost:8000/ to check it out.
