@@ -9,9 +9,11 @@ from tw2.jqplugins.jqgrid.widgets import jqGridWidget
 from tw2.jqplugins.jqgrid.base import word_wrap_css
 from random import random
 from random import randint
-r = lambda x : randint(0,x-1)
+
+r = lambda x: randint(0, x - 1)
 
 # No sample b/c its so difficult to find a datasource.
+
 
 def generate_data(n):
     fnames = ['S.', 'J.']
@@ -32,8 +34,8 @@ def generate_data(n):
     for i in range(n):
         authors = ", ".join(["%s %s" % (fnames[r(len(fnames))],
                                         lnames[r(len(lnames))])
-                             for j in range(randint(1,2))])
-        title = "%s %s %s %s %s %s." %(
+                             for j in range(randint(1, 2))])
+        title = "%s %s %s %s %s %s." % (
             intros[r(len(intros))],
             adjectives[r(len(adjectives))],
             nouns[r(len(nouns))],
@@ -47,10 +49,11 @@ def generate_data(n):
             nouns[r(len(nouns))],
         )
         published = randint(1955, 2010)
-        yield {'authors':authors,
-               'title':title,
-               'journal':journal,
-               'published_on':published}
+        yield {'authors': authors,
+               'title': title,
+               'journal': journal,
+               'published_on': published}
+
 
 class DemoJQGridWidget(jqGridWidget):
 
@@ -59,34 +62,34 @@ class DemoJQGridWidget(jqGridWidget):
         super(DemoJQGridWidget, self).prepare()
 
     options = {
-        'pager' : 'module-0-demo_pager',
-        'caption' : 'All research publications',
-        'data' : [row for row in generate_data(55)],
-        'datatype' : 'local',
-        'colNames':[ 'Authors', 'Title', 'Journal', 'Published' ],
-        'colModel' : [
+        'pager': 'module-0-demo_pager',
+        'caption': 'All research publications',
+        'data': [row for row in generate_data(55)],
+        'datatype': 'local',
+        'colNames': ['Authors', 'Title', 'Journal', 'Published'],
+        'colModel': [
             {
                 'name':'authors',
                 'width':50,
                 'align':'center',
-            },{
+            }, {
                 'name':'title',
-            },{
+            }, {
                 'name':'journal',
-            },{
+            }, {
                 'name':'published_on',
                 'width':50,
                 'align':'center'
             },
         ],
-        'rowNum':15,
-        'rowList':[15,30,50],
-        'viewrecords':True,
+        'rowNum': 15,
+        'rowList': [15, 30, 50],
+        'viewrecords': True,
         'imgpath': 'scripts/jqGrid/themes/green/images',
         'width': 590,
         'height': 'auto',
     }
-    pager_options = { "search" : True, "refresh" : True, "add" : False, }
+    pager_options = {"search": True, "refresh": True, "add": False, }
     prmSearch = {
         "sopt": ["cn", "bw"],
         "caption": "Search...",
@@ -100,12 +103,12 @@ class DemoJQGridWidget(jqGridWidget):
             'position': "last",
             'title':"B1",
             'cursor':"pointer"
-        },{
-            'caption':"",
-            'buttonicon':"ui-icon-cart",
-            'onClickButton':None,
+        }, {
+            'caption': "",
+            'buttonicon': "ui-icon-cart",
+            'onClickButton': None,
             'position': "first",
-            'title':"B2",
+            'title': "B2",
             'cursor': "pointer"
         },
     ]

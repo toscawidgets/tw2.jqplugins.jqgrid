@@ -4,15 +4,15 @@ import defaults
 
 jqgrid_css = twjq_c.jQueryPluginCSSLink(
     name=defaults._jqgrid_name_,
-    version = defaults._jqgrid_version_,
-    basename = defaults._jqgrid_css_basename_,
-    modname = 'tw2.jqplugins.jqgrid',
+    version=defaults._jqgrid_version_,
+    basename=defaults._jqgrid_css_basename_,
+    modname='tw2.jqplugins.jqgrid',
 )
 word_wrap_css = twjq_c.jQueryPluginCSSLink(
     name=defaults._jqgrid_name_,
-    version = defaults._jqgrid_version_,
-    basename = defaults._jqgrid_css_basename_,
-    modname = 'tw2.jqplugins.jqgrid',
+    version=defaults._jqgrid_version_,
+    basename=defaults._jqgrid_css_basename_,
+    modname='tw2.jqplugins.jqgrid',
     variant='word_wrap',
 )
 

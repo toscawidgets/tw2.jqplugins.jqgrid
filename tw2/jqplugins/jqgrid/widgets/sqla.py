@@ -15,6 +15,7 @@ import math
 
 COUNT_PREFIX = '__count_'
 
+
 def dotted_getattr(obj, field, *args):
     try:
         result = reduce(getattr, field.split('.'), obj)
@@ -23,10 +24,14 @@ def dotted_getattr(obj, field, *args):
     finally:
         return result
 
+
 def is_attribute(x):
     return type(x) is sqlalchemy.orm.properties.ColumnProperty
+
+
 def is_relation(x):
     return type(x) is sqlalchemy.orm.properties.RelationshipProperty
+
 
 class SQLAjqGridWidget(jqGridWidget):
     entity = tw2.core.Param("sqlalchemy class to render", request_local=False)
@@ -39,14 +44,16 @@ class SQLAjqGridWidget(jqGridWidget):
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
 
-
     @classmethod
     def exclude_property(cls, p):
         explicitly_excluded = p.key in cls.excluded_columns
         excluded_by_attribute = is_attribute(p) and not cls.show_attributes
-        excluded_by_relation  = is_relation(p) and not cls.show_relations
-        return explicitly_excluded or excluded_by_attribute or excluded_by_relation
-
+        excluded_by_relation = is_relation(p) and not cls.show_relations
+        return any([
+            explicitly_excluded,
+            excluded_by_attribute,
+            excluded_by_relation,
+        ])
 
     @classmethod
     def _get_align(cls, prop):
@@ -62,7 +69,9 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _get_name(cls, prop):
         name = prop.key
-        if is_relation(prop) and prop.direction.name.endswith('TOMANY') and prop.uselist:
+        if is_relation(prop) and \
+           prop.direction.name.endswith('TOMANY') and \
+           prop.uselist:
             name = COUNT_PREFIX + prop.key
         return name
 
@@ -73,8 +82,8 @@ class SQLAjqGridWidget(jqGridWidget):
             'align': cls._get_align(prop),
             'label': tw2.core.util.name2label(prop.key),
             'sortable': not (is_relation(prop) and not prop.uselist),
-            'search' : not is_relation(prop),
-            'searchoptions' : {'sopt':['cn']},
+            'search': not is_relation(prop),
+            'searchoptions': {'sopt': ['cn']},
         }
 
     @classmethod
@@ -94,10 +103,11 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _get_metadata(cls):
         props = cls._get_properties()
-        colmodel = [cls._make_model(p) for p in props] if not cls.colModel else cls.colModel
+        colmodel = [cls._make_model(p) for p in props] \
+                if not cls.colModel else cls.colModel
         return {
-            'colNames' : [e.get('label', "No Label Set") for e in colmodel],
-            'colModel' : colmodel
+            'colNames': [e.get('label', "No Label Set") for e in colmodel],
+            'colModel': colmodel
         }
 
     @classmethod
@@ -123,26 +133,27 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _get_subquery_lookup(cls):
         subquery_lookup = {}
-        # TODO -- the *meaning* of local and remote are used incorrectly everywhere :)
+        # TODO -- the *meaning* of local and remote are used
+        # incorrectly everywhere :)
         for prop in cls._get_properties():
             if (is_relation(prop)
                 and prop.direction.name.endswith('TOMANY')
                 and not prop.uselist):
-                continue # One to One relation.  We do nothing.
+                continue  # One to One relation.  We do nothing.
             elif is_relation(prop) and prop.direction.name == 'MANYTOMANY':
                 ent = {
-                    'cls' : prop.secondary,
-                    'local' : 'c.' + prop.remote_side[0].key,
-                    'remote' : prop.local_side[0].key,
+                    'cls': prop.secondary,
+                    'local': 'c.' + prop.remote_side[0].key,
+                    'remote': prop.local_side[0].key,
                 }
             elif is_relation(prop) and prop.direction.name == 'ONETOMANY':
                 ent = {
-                    'cls' : prop.mapper._identity_class,
-                    'local' : prop.remote_side[0].key,
-                    'remote' : prop.local_side[0].key,
+                    'cls': prop.mapper._identity_class,
+                    'local': prop.remote_side[0].key,
+                    'remote': prop.local_side[0].key,
                 }
             elif is_relation(prop) and prop.direction.name == 'MANYTOONE':
-                continue # TODO
+                continue  # TODO
             else:
                 continue
                 # TODO -- other types of relations
@@ -194,7 +205,7 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _build_sorted_query(cls, kw):
         # A little lookup table for sorting
-        orders = { 'desc' : sqlalchemy.desc, 'asc' : sqlalchemy.asc, }
+        orders = {'desc': sqlalchemy.desc, 'asc': sqlalchemy.asc, }
 
         # Grab the session from our entity
         session = cls.entity.query.session
@@ -255,14 +266,13 @@ class SQLAjqGridWidget(jqGridWidget):
 
     def prepare(self):
         if not getattr(self, 'entity', None):
-            raise ValueError, "SQLAjqGridWidget must be supplied an 'entity'"
+            raise ValueError("SQLAjqGridWidget must be supplied an 'entity'")
 
         if not getattr(self, 'options', None):
-            raise ValueError, "SQLAjqGridWidget must be supplied a 'options'"
+            raise ValueError("SQLAjqGridWidget must be supplied a 'options'")
 
         if 'url' not in self.options:
-            raise ValueError, "SQLAjqGridWidget options must contain 'url'"
-
+            raise ValueError("SQLAjqGridWidget options must contain 'url'")
 
         _options = self.options
         super(SQLAjqGridWidget, self).prepare()
@@ -279,18 +289,20 @@ class SQLAjqGridWidget(jqGridWidget):
 
         self.options = encoder.encode(_options)
 
-
-
     from tw2.core.jsonify import jsonify
+
     @classmethod
     @jsonify
     def request(cls, req):
         try:
             pkey = sa.orm.class_mapper(cls.entity).primary_key[0].key
             kw = {
-                'page' : 1,        'rows' : 10000,
-                'sord' : 'desc',   'sidx' : pkey,
-                '_search' : 'False',     'nd' : 0,
+                'page': 1,
+                'rows': 10000,
+                'sord': 'desc',
+                'sidx': pkey,
+                '_search': 'False',
+                'nd': 0,
             }
             kw.update(req.params)
 
@@ -302,19 +314,21 @@ class SQLAjqGridWidget(jqGridWidget):
             if kw['_search'] and kw['_search'].lower() == 'true':
                 base = cls._searched_query(base, kw)
 
-            entries = base.offset((kw['page']-1)*kw['rows']).limit(kw['rows']).all()
+            entries = base.offset(
+                (kw['page'] - 1) * kw['rows']
+            ).limit(kw['rows']).all()
             entries = cls._collapse_subqueries(entries)
             count = base.count()
 
             return {
-                "page" : kw['page'],
-                "total" : int(math.ceil(float(count) / kw['rows'])),
-                "records" : count,
-                "rows" : [
+                "page": kw['page'],
+                "total": int(math.ceil(float(count) / kw['rows'])),
+                "records": count,
+                "rows": [
                     {
                         "id": getattr(entry, pkey),
                         "cell": cls._get_data(entry)
-                    } for entry in entries ]
+                    } for entry in entries]
             }
         except Exception, e:
             import traceback
