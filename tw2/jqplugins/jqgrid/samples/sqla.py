@@ -37,5 +37,4 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
 
 
 import tw2.core as twc
-mw = twc.core.request_local()['middleware']
-mw.controllers.register(DemoSQLAJQGridWidget, 'db_jqgrid')
+twc.register_controller(DemoSQLAJQGridWidget, 'db_jqgrid')
