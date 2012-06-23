@@ -23,17 +23,20 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
 
     options = {
         'url': '/db_jqgrid/',
+        'editurl': '/db_jqgrid/',
         'rowNum': 15,
         'rowList': [15, 30, 50],
         'viewrecords': True,
         'imgpath': 'scripts/jqGrid/themes/green/images',
         'width': 590,
         'height': 'auto',
+
+        'pager': 'module-1-demo_pager',
     }
 
     prmFilter = {'stringResult': True, 'searchOnEnter': False}
 
-    pager_options = {"search": True, "refresh": True, "add": False, }
+    pager_options = {"search": True, "refresh": True, "add": True, }
 
 
 import tw2.core as twc

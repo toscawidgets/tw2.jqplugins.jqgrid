@@ -1,6 +1,8 @@
 import tw2.core
 import tw2.core.util
 from tw2.core.resources import encoder
+from tw2.core.jsonify import jsonify
+
 
 import sqlalchemy as sa
 from sqlalchemy import or_, and_
@@ -12,6 +14,7 @@ from tw2.jqplugins.jqgrid.widgets.core import jqGridWidget
 import simplejson
 import datetime
 import math
+import transaction
 
 COUNT_PREFIX = '__count_'
 
@@ -82,6 +85,7 @@ class SQLAjqGridWidget(jqGridWidget):
             'align': cls._get_align(prop),
             'label': tw2.core.util.name2label(prop.key),
             'sortable': not (is_relation(prop) and not prop.uselist),
+            'editable': not is_relation(prop),
             'search': not is_relation(prop),
             'searchoptions': {'sopt': ['cn']},
         }
@@ -279,7 +283,6 @@ class SQLAjqGridWidget(jqGridWidget):
 
         pkey = sa.orm.class_mapper(self.entity).primary_key[0].key
         _options.update({
-            'pager': "%s_pager" % self.id,
             'caption': tw2.core.util.name2label(self.entity.__name__),
             'sortname': pkey,
             'datatype': 'json',
@@ -289,11 +292,56 @@ class SQLAjqGridWidget(jqGridWidget):
 
         self.options = encoder.encode(_options)
 
-    from tw2.core.jsonify import jsonify
-
     @classmethod
     @jsonify
     def request(cls, req):
+        if req.GET:
+            return cls._request_query(req)
+        elif req.POST:
+            return cls._request_post(req)
+        else:
+            print "Neither a GET nor a POST..  dunno what do to."
+            raise ValueError("Failboat.")
+
+    @classmethod
+    def _request_post_add(cls, req):
+        kwargs = dict(req.params)
+
+        # Prune empty values
+        for key, value in kwargs.items():
+            if not value:
+                kwargs.pop(key)
+
+
+        # Do some data massaging (strings -> datetime objects)
+        for prop in filter(is_attribute, cls._get_properties()):
+            if prop.key not in kwargs:
+                continue
+            if type(prop.columns[0].type) == sqlalchemy.types.DateTime:
+                kwargs[prop.key] = datetime.datetime.strptime(
+                    kwargs[prop.key],
+                    cls.datetime_format
+                )
+
+
+        del kwargs['oper']
+        del kwargs['id']
+        obj = cls.entity(**kwargs)
+        obj.query.session.add(obj)
+        transaction.commit()
+        return kwargs
+
+    @classmethod
+    def _request_post(cls, req):
+        if not 'oper' in req.params:
+            raise ValueError("No operation specified.")
+
+        method_name = "_request_post_%s" % req.params['oper']
+        return getattr(cls, method_name)(req)
+
+
+    @classmethod
+    def _request_query(cls, req):
         try:
             pkey = sa.orm.class_mapper(cls.entity).primary_key[0].key
             kw = {
@@ -333,4 +381,4 @@ class SQLAjqGridWidget(jqGridWidget):
         except Exception, e:
             import traceback
             traceback.print_exc(e)
-            print "-" * 40
+            raise
