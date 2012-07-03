@@ -312,7 +312,6 @@ class SQLAjqGridWidget(jqGridWidget):
             if not value:
                 kwargs.pop(key)
 
-
         # Do some data massaging (strings -> datetime objects)
         for prop in filter(is_attribute, cls._get_properties()):
             if prop.key not in kwargs:
@@ -322,7 +321,6 @@ class SQLAjqGridWidget(jqGridWidget):
                     kwargs[prop.key],
                     cls.datetime_format
                 )
-
 
         del kwargs['oper']
         del kwargs['id']
@@ -338,7 +336,6 @@ class SQLAjqGridWidget(jqGridWidget):
 
         method_name = "_request_post_%s" % req.params['oper']
         return getattr(cls, method_name)(req)
-
 
     @classmethod
     def _request_query(cls, req):
