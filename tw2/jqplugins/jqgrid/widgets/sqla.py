@@ -304,8 +304,8 @@ class SQLAjqGridWidget(jqGridWidget):
             raise ValueError("Failboat.")
 
     @classmethod
-    def _request_post_add(cls, req):
-        kwargs = dict(req.params)
+    def _massage_post_params(cls, params):
+        kwargs = dict(params)
 
         # Prune empty values
         for key, value in kwargs.items():
@@ -322,12 +322,33 @@ class SQLAjqGridWidget(jqGridWidget):
                     cls.datetime_format
                 )
 
+        return kwargs
+
+    @classmethod
+    def _request_post_add(cls, req):
+        kwargs = cls._massage_post_params(req.params)
+
         del kwargs['oper']
         del kwargs['id']
         obj = cls.entity(**kwargs)
         obj.query.session.add(obj)
         transaction.commit()
-        return kwargs
+        return {}
+
+    @classmethod
+    def _request_post_edit(cls, req):
+        kwargs = cls._massage_post_params(req.params)
+
+        obj = cls.entity.query.filter_by(id=kwargs['id']).one()
+
+        del kwargs['oper']
+        del kwargs['id']
+
+        for key, value in kwargs.items():
+            setattr(obj, key, value)
+
+        transaction.commit()
+        return {}
 
     @classmethod
     def _request_post(cls, req):
