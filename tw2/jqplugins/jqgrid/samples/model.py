@@ -7,7 +7,7 @@ from sqlalchemy.orm import relation, backref
 from sqlalchemy.ext.declarative import declarative_base
 
 import tw2.sqla as tws
-    
+
 import random
 from random import randint
 from datetime import datetime, timedelta
@@ -23,6 +23,7 @@ friends_mapping = Table(
     Column('friendee_id', Integer,
            ForeignKey('persons.id'), primary_key=True))
 
+
 class Person(Base):
     __tablename__ = 'persons'
     id = Column(Integer, primary_key=True)
@@ -31,7 +32,7 @@ class Person(Base):
     some_attribute = Column(Unicode(255), nullable=False)
     birf_day = Column(
         DateTime, nullable=False,
-        default=lambda:datetime.now()-timedelta(randint(0, 2000)))
+        default=lambda: datetime.now() - timedelta(randint(0, 2000)))
 
     # One-to-one
     pet = relation('Pet', backref='owner', uselist=False)
@@ -43,6 +44,7 @@ class Person(Base):
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+
 class Pet(Base):
     __tablename__ = 'pets'
     id = Column(Integer, primary_key=True)
@@ -53,11 +55,13 @@ class Pet(Base):
     def __unicode__(self):
         return self.name
 
+
 class Child(Base):
     __tablename__ = 'children'
     id = Column(Integer, primary_key=True)
     name = Column(Unicode(255), nullable=False)
     parent_id = Column(Integer, ForeignKey('persons.id'))
+
 
 class Job(Base):
     __tablename__ = 'jobs'
@@ -69,16 +73,16 @@ class Job(Base):
         return self.name
 
 
-
 Person.__mapper__.add_property('friends', relation(Person,
-    primaryjoin=Person.id==friends_mapping.c.friendee_id,
-    secondaryjoin=friends_mapping.c.friender_id==Person.id,
+    primaryjoin=Person.id == friends_mapping.c.friendee_id,
+    secondaryjoin=friends_mapping.c.friender_id == Person.id,
     secondary=friends_mapping,
     doc="List of this persons' friends!",
 ))
 
 
 Base.metadata.create_all()
+
 
 def populateDB(sess):
     if Person.query.count() > 0:
@@ -94,7 +98,7 @@ def populateDB(sess):
         for last in lasts:
             p = Person(
                 first_name=first, last_name=last,
-                some_attribute="Fun fact #%i" % random.randint(0,255)
+                some_attribute="Fun fact #%i" % random.randint(0, 255)
             )
             sess.add(p)
 
@@ -107,16 +111,15 @@ def populateDB(sess):
     varieties = ["dog", "cat", "bird", "fish", "hermit crab", "lizard"]
 
     for person in Person.query.all():
-        pet = Pet(name=pet_names[random.randint(0,len(pet_names)-1)],
-                  variety=varieties[random.randint(0,len(varieties)-1)])
+        pet = Pet(name=pet_names[random.randint(0, len(pet_names) - 1)],
+                  variety=varieties[random.randint(0, len(varieties) - 1)])
         sess.add(pet)
         person.pet = pet
         for i in range(0, random.randint(0, 4)):
-            child = Child(name=firsts[random.randint(0, len(firsts)-1)])
+            child = Child(name=firsts[random.randint(0, len(firsts) - 1)])
             sess.add(child)
             person.children.append(child)
-            person.job = jobs[random.randint(0, len(jobs)-1)]
-
+            person.job = jobs[random.randint(0, len(jobs) - 1)]
 
     qaddafis = Person.query.filter_by(last_name='Qaddafi').all()
     mubaraks = Person.query.filter_by(last_name='Mubarak').all()
