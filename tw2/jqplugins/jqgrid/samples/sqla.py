@@ -36,7 +36,12 @@ class DemoSQLAJQGridWidget(SQLAjqGridWidget):
 
     prmFilter = {'stringResult': True, 'searchOnEnter': False}
 
-    pager_options = {"search": True, "refresh": True, "add": True, }
+    pager_options = {
+        "search": False,
+        "refresh": True,
+        "add": True,
+        "del": False,
+    }
 
 
 import tw2.core as twc
