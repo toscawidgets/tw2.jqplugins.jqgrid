@@ -1,6 +1,10 @@
 from webob import Request
 from webob.multidict import NestedMultiDict
-from tw2.core.testbase import assert_in_xml, assert_eq_xml, WidgetTest
+from tw2.core.testbase import (
+    assert_in_xml,
+    assert_eq_xml,
+    WidgetTest as _WidgetTest,
+)
 from nose.tools import raises
 from cStringIO import StringIO
 from tw2.core import EmptyField, IntValidator, ValidationError
@@ -14,6 +18,9 @@ else:
     from webob.multidict import NestedMultiDict
 
 import tw2.jqplugins.jqgrid.widgets as w
+
+class WidgetTest(_WidgetTest):
+    engines = ['mako', 'genshi']
 
 class TestJQGridWidget(WidgetTest):
     widget = w.jqGridWidget
