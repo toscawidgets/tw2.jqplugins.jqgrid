@@ -18,7 +18,6 @@ import transaction
 
 COUNT_PREFIX = '__count_'
 
-
 def dotted_getattr(obj, field, *args):
     try:
         result = reduce(getattr, field.split('.'), obj)
@@ -39,10 +38,12 @@ def is_relation(x):
 class SQLAjqGridWidget(jqGridWidget):
     entity = tw2.core.Param("sqlalchemy class to render", request_local=False)
     excluded_columns = tw2.core.Param(
-        "list of names of columns to be excluded", default=[])
+        """list of names of columns to be excluded. This will only work if
+        colModel is not passed.""", default=[])
     datetime_format = tw2.core.Param(
         "format string for formatting datetime objects", default="%x")
-    colModel = tw2.core.Param("list of columns to display", default=[])
+    colModel = tw2.core.Param(
+            "list,sequence and options of columns to display", default=[])
 
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
@@ -92,15 +93,27 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _get_properties(cls):
-        props = [p for p in sa.orm.class_mapper(cls.entity).iterate_properties
-                 if not cls.exclude_property(p)]
+        
+        props = []
+        if cls.colModel:
+            props = [p for p in sa.orm.class_mapper(cls.entity).iterate_properties]
+            new_props = []
+            for col in cls.colModel:
+                for p in props:
+                    if p.key == col['name']:
+                        new_props.append(p)
+            props = new_props
 
-        # Reorder properties to put relationships last
-        def relation_sorter(x, y):
-            xname = dotted_getattr(x, 'direction.name', 'a')
-            yname = dotted_getattr(y, 'direction.name', 'a')
-            return -1 * cmp(xname, yname)
-        props.sort(relation_sorter)
+        else:
+            props = [p for p in
+                    sa.orm.class_mapper(cls.entity).iterate_properties if not
+                    cls.exclude_property(p)]
+            # Reorder properties to put relationships last
+            def relation_sorter(x, y):
+                xname = dotted_getattr(x, 'direction.name', 'a')
+                yname = dotted_getattr(y, 'direction.name', 'a')
+                return -1 * cmp(xname, yname)
+            props.sort(relation_sorter)
 
         return props
 
@@ -273,7 +286,7 @@ class SQLAjqGridWidget(jqGridWidget):
             raise ValueError("SQLAjqGridWidget must be supplied an 'entity'")
 
         if not getattr(self, 'options', None):
-            raise ValueError("SQLAjqGridWidget must be supplied a 'options'")
+            raise ValueError("SQLAjqGridWidget must be supplied an 'options'")
 
         if 'url' not in self.options:
             raise ValueError("SQLAjqGridWidget options must contain 'url'")
@@ -282,14 +295,19 @@ class SQLAjqGridWidget(jqGridWidget):
         super(SQLAjqGridWidget, self).prepare()
 
         pkey = sa.orm.class_mapper(self.entity).primary_key[0].key
+        
+        # Derive caption from table name if not passed as argument
+        if not _options['caption']:
+            _options.update({
+                'caption': tw2.core.util.name2label(self.entity.__name__)
+            })
+
         _options.update({
-            'caption': tw2.core.util.name2label(self.entity.__name__),
             'sortname': pkey,
             'datatype': 'json',
         })
 
         _options.update(type(self)._get_metadata())
-
         self.options = encoder.encode(_options)
 
     @classmethod
