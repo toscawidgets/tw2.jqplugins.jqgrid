@@ -7,7 +7,7 @@
 <script type="text/javascript">
 $(document).ready(
     function(){
-        var opts = ${w.options};
+        var opts = ${w.options | n};
         var grid = $("#${w.selector}");
         grid.jqGrid(opts);
         if ( 'pager' in opts ) {
