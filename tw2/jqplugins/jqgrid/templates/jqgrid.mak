@@ -22,7 +22,7 @@ $(document).ready(
             grid.navGrid('#'+opts['pager_selector'], pager_opts,
                          prmEdit, prmAdd, prmDel, prmSearch, prmView)
             % for btn in w._custom_pager_buttons:
-                .navButtonAdd('#'+opts['pager_selector'], ${btn})
+                .navButtonAdd('#'+opts['pager_selector'], ${btn | n})
             % endfor
             ;
         }
