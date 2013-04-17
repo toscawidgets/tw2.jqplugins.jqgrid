@@ -93,7 +93,7 @@ class SQLAjqGridWidget(jqGridWidget):
 
     @classmethod
     def _get_properties(cls):
-        
+
         props = []
         if cls.colModel:
             props = [p for p in sa.orm.class_mapper(cls.entity).iterate_properties]
@@ -158,16 +158,18 @@ class SQLAjqGridWidget(jqGridWidget):
                 and not prop.uselist):
                 continue  # One to One relation.  We do nothing.
             elif is_relation(prop) and prop.direction.name == 'MANYTOMANY':
+                local, remote = prop.local_remote_pairs[0]
                 ent = {
                     'cls': prop.secondary,
-                    'local': 'c.' + prop.remote_side[0].key,
-                    'remote': prop.local_side[0].key,
+                    'local': 'c.' + remote.key,
+                    'remote': local.key,
                 }
             elif is_relation(prop) and prop.direction.name == 'ONETOMANY':
+                local, remote = prop.local_remote_pairs[0]
                 ent = {
                     'cls': prop.mapper._identity_class,
-                    'local': prop.remote_side[0].key,
-                    'remote': prop.local_side[0].key,
+                    'local': remote.key,
+                    'remote': local.key,
                 }
             elif is_relation(prop) and prop.direction.name == 'MANYTOONE':
                 continue  # TODO
@@ -295,7 +297,7 @@ class SQLAjqGridWidget(jqGridWidget):
         super(SQLAjqGridWidget, self).prepare()
 
         pkey = sa.orm.class_mapper(self.entity).primary_key[0].key
-        
+
         # Derive caption from table name if not passed as argument
         if not _options['caption']:
             _options.update({
