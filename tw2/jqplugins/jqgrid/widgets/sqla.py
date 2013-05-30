@@ -41,7 +41,7 @@ class SQLAjqGridWidget(jqGridWidget):
         """list of names of columns to be excluded. This will only work if
         colModel is not passed.""", default=[])
     datetime_format = tw2.core.Param(
-        "format string for formatting datetime objects", default="%x")
+        "format string for formatting date/datetime objects", default="%x")
     colModel = tw2.core.Param(
             "list,sequence and options of columns to display", default=[])
 
@@ -141,7 +141,7 @@ class SQLAjqGridWidget(jqGridWidget):
             elif is_relation(prop) and not prop.uselist:
                 data = unicode(data)
 
-            if isinstance(data, datetime.datetime):
+            if isinstance(data, (datetime.datetime, datetime.date)):
                 data = data.strftime(cls.datetime_format)
 
             return data
