@@ -299,15 +299,17 @@ class SQLAjqGridWidget(jqGridWidget):
         pkey = sa.orm.class_mapper(self.entity).primary_key[0].key
 
         # Derive caption from table name if not passed as argument
-        if not _options['caption']:
-            _options.update({
-                'caption': tw2.core.util.name2label(self.entity.__name__)
-            })
-
-        _options.update({
-            'sortname': pkey,
-            'datatype': 'json',
-        })
+        if 'caption' not in _options:
+            _options['caption'] = tw2.core.util.name2label(self.entity.__name__)
+            
+        # if 'sortname' not specified in _options, use pkey
+        ## TODO:: should warn (or raise err) if the colModel option for the 
+        ##        specified column is {'sortable': False}
+        if 'sortname' not in _options:
+            _options['sortname'] = pkey
+            
+        # set datatype
+        _options.update({ 'datatype': 'json' })
 
         _options.update(type(self)._get_metadata())
         self.options = encoder.encode(_options)
