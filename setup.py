@@ -25,6 +25,7 @@ setup(
         "tw2.jquery",
         "tw2.jqplugins.ui>=2.0b7",
         "tw2.sqla",
+        "simplejson",
         ],
     extras_require = {
         'genshi': _extra_genshi,
