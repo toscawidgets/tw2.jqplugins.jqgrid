@@ -361,7 +361,10 @@ class SQLAjqGridWidget(jqGridWidget):
     def _request_post_edit(cls, req):
         kwargs = cls._massage_post_params(req.params)
 
-        obj = cls.entity.query.filter_by(id=kwargs['id']).one()
+        pk = dict()
+        pkey = sa.orm.class_mapper(cls.entity).primary_key[0].key
+        pk[pkey] = kwargs["id"]
+        obj = cls.entity.query.filter_by(**pk).one()
 
         del kwargs['oper']
         del kwargs['id']
