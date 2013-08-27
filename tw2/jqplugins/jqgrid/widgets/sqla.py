@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import tw2.core
 import tw2.core.util
 from tw2.core.resources import encoder
@@ -11,17 +13,18 @@ import sqlalchemy.orm.properties
 
 from tw2.jqplugins.jqgrid.widgets.core import jqGridWidget
 
-import simplejson
+import json
 import datetime
 import math
 import transaction
 
 COUNT_PREFIX = '__count_'
 
+
 def dotted_getattr(obj, field, *args):
     try:
         result = reduce(getattr, field.split('.'), obj)
-    except AttributeError, e:
+    except AttributeError as e:
         result = args[0]
     finally:
         return result
@@ -43,7 +46,7 @@ class SQLAjqGridWidget(jqGridWidget):
     datetime_format = tw2.core.Param(
         "format string for formatting date/datetime objects", default="%x")
     colModel = tw2.core.Param(
-            "list,sequence and options of columns to display", default=[])
+        "list,sequence and options of columns to display", default=[])
 
     show_relations = tw2.core.Param("(bool) show relationships?", default=True)
     show_attributes = tw2.core.Param("(bool) show attributes?", default=True)
@@ -96,7 +99,10 @@ class SQLAjqGridWidget(jqGridWidget):
 
         props = []
         if cls.colModel:
-            props = [p for p in sa.orm.class_mapper(cls.entity).iterate_properties]
+            props = [
+                p for p in
+                sa.orm.class_mapper(cls.entity).iterate_properties
+            ]
             new_props = []
             for col in cls.colModel:
                 for p in props:
@@ -106,13 +112,15 @@ class SQLAjqGridWidget(jqGridWidget):
 
         else:
             props = [p for p in
-                    sa.orm.class_mapper(cls.entity).iterate_properties if not
-                    cls.exclude_property(p)]
+                     sa.orm.class_mapper(cls.entity).iterate_properties
+                     if not cls.exclude_property(p)]
+
             # Reorder properties to put relationships last
             def relation_sorter(x, y):
                 xname = dotted_getattr(x, 'direction.name', 'a')
                 yname = dotted_getattr(y, 'direction.name', 'a')
                 return -1 * cmp(xname, yname)
+
             props.sort(relation_sorter)
 
         return props
@@ -121,7 +129,7 @@ class SQLAjqGridWidget(jqGridWidget):
     def _get_metadata(cls):
         props = cls._get_properties()
         colmodel = [cls._make_model(p) for p in props] \
-                if not cls.colModel else cls.colModel
+            if not cls.colModel else cls.colModel
         return {
             'colNames': [e.get('label', "No Label Set") for e in colmodel],
             'colModel': colmodel
@@ -153,9 +161,10 @@ class SQLAjqGridWidget(jqGridWidget):
         # TODO -- the *meaning* of local and remote are used
         # incorrectly everywhere :)
         for prop in cls._get_properties():
-            if (is_relation(prop)
-                and prop.direction.name.endswith('TOMANY')
-                and not prop.uselist):
+            if is_relation(prop) \
+                    and prop.direction.name.endswith('TOMANY') \
+                    and not prop.uselist:
+
                 continue  # One to One relation.  We do nothing.
             elif is_relation(prop) and prop.direction.name == 'MANYTOMANY':
                 local, remote = prop.local_remote_pairs[0]
@@ -186,7 +195,7 @@ class SQLAjqGridWidget(jqGridWidget):
             return col == string
         elif oper == 'ne':
             return col != string
-        elif  oper == 'lt':
+        elif oper == 'lt':
             return col < string
         elif oper == 'le':
             return col <= string
@@ -204,7 +213,7 @@ class SQLAjqGridWidget(jqGridWidget):
     @classmethod
     def _searched_query(cls, query, kw):
         if 'filters' in kw:
-            filters = simplejson.loads(kw['filters'])
+            filters = json.loads(kw['filters'])
             if filters['groupOp'] == 'AND':
                 and_query = []
                 for rule in filters['rules']:
@@ -255,7 +264,7 @@ class SQLAjqGridWidget(jqGridWidget):
         for attribute, l in subquery_lookup.iteritems():
             query = query.outerjoin((
                 subqueries[attribute],
-                getattr(cls.entity, l['remote']) == \
+                getattr(cls.entity, l['remote']) ==
                 getattr(subqueries[attribute].c, l['local'].split('.')[-1])
             ))
 
@@ -300,16 +309,17 @@ class SQLAjqGridWidget(jqGridWidget):
 
         # Derive caption from table name if not passed as argument
         if 'caption' not in _options:
-            _options['caption'] = tw2.core.util.name2label(self.entity.__name__)
-            
+            name2label = tw2.core.util.name2label
+            _options['caption'] = name2label(self.entity.__name__)
+
         # if 'sortname' not specified in _options, use pkey
-        ## TODO:: should warn (or raise err) if the colModel option for the 
+        ## TODO:: should warn (or raise err) if the colModel option for the
         ##        specified column is {'sortable': False}
         if 'sortname' not in _options:
             _options['sortname'] = pkey
-            
+
         # set datatype
-        _options.update({ 'datatype': 'json' })
+        _options.update({'datatype': 'json'})
 
         _options.update(type(self)._get_metadata())
         self.options = encoder.encode(_options)
@@ -322,7 +332,7 @@ class SQLAjqGridWidget(jqGridWidget):
         elif req.POST:
             return cls._request_post(req)
         else:
-            print "Neither a GET nor a POST..  dunno what do to."
+            print("Neither a GET nor a POST..  dunno what do to.")
             raise ValueError("Failboat.")
 
     @classmethod
@@ -421,7 +431,7 @@ class SQLAjqGridWidget(jqGridWidget):
                         "cell": cls._get_data(entry)
                     } for entry in entries]
             }
-        except Exception, e:
+        except Exception as e:
             import traceback
             traceback.print_exc(e)
             raise

@@ -1,6 +1,6 @@
 
 import tw2.jquery.base as twjq_c
-import defaults
+from tw2.jqplugins.jqgrid import defaults
 
 jqgrid_css = twjq_c.jQueryPluginCSSLink(
     name=defaults._jqgrid_name_,
