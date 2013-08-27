@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
 
-import multiprocessing, logging
+import sys
+import multiprocessing
+import logging
 
 f = open('README.rst')
 long_description = f.read().strip()
@@ -11,9 +13,19 @@ f.close()
 _extra_genshi = ["Genshi >= 0.3.5"]
 _extra_mako = ["Mako >= 0.1.1"]
 
+tests_require = [
+    'nose',
+    'sieve',
+    'webtest',
+] + _extra_genshi + _extra_mako
+
+if sys.version_info[0] < 3:
+    tests_require.append('FormEncode')
+
+
 setup(
     name='tw2.jqplugins.jqgrid',
-    version='2.0.5',
+    version='2.2.0',
     description='toscawidgets2 wrapper for the jQuery grid plugin',
     long_description=long_description,
     author='Ralph Bean',
@@ -25,13 +37,13 @@ setup(
         "tw2.jquery",
         "tw2.jqplugins.ui>=2.0b7",
         "tw2.sqla",
+        "six",
         ],
     extras_require = {
         'genshi': _extra_genshi,
         'mako': _extra_mako,
     },
-    tests_require = ['BeautifulSoup', 'nose', 'FormEncode', 'WebTest',
-                     'strainer',] + _extra_genshi + _extra_mako,
+    tests_require=tests_require,
     packages=find_packages(exclude=['ez_setup', 'tests']),
     namespace_packages = ['tw2'],
     zip_safe=False,

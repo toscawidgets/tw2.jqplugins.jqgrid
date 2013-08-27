@@ -3,4 +3,4 @@
 Get the source from http://github.com/toscawidgets/tw2.jqplugins.jqgrid
 """
 
-from widgets import *
+from .widgets import *
