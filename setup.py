@@ -25,7 +25,7 @@ if sys.version_info[0] < 3:
 
 setup(
     name='tw2.jqplugins.jqgrid',
-    version='2.0.5',
+    version='2.2.0',
     description='toscawidgets2 wrapper for the jQuery grid plugin',
     long_description=long_description,
     author='Ralph Bean',
